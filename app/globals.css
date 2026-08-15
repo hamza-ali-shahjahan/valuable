@@ -1,0 +1,504 @@
+/*
+ * Valuable — a document, not a dashboard.
+ *
+ * The trace viewer is the signature page, so the type is set for reading a derivation
+ * top to bottom. Numbers, hashes and formulas are monospaced; prose is not.
+ *
+ * The three node kinds must be distinguishable at a glance, because the whole point is
+ * that a reader notices which parts are judgements.
+ */
+
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --border: #e4e2dd;
+  --border-strong: #d0cdc6;
+  --ink: #1a1917;
+  --ink-2: #55524c;
+  --ink-3: #8a867e;
+
+  --observed: #2f7a5a;
+  --observed-bg: #eef6f2;
+  --assumption: #a8620a;
+  --assumption-bg: #fdf4e7;
+  --derived: #2b5f9e;
+  --derived-bg: #eef3fa;
+  --warn: #9a5b00;
+  --warn-bg: #fdf6e9;
+  --danger: #a3312a;
+  --danger-bg: #fbeeed;
+
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+
+  --r: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12120f;
+    --surface: #191916;
+    --border: #2a2a25;
+    --border-strong: #3a3a33;
+    --ink: #eceae4;
+    --ink-2: #a9a59c;
+    --ink-3: #75716a;
+
+    --observed: #6fc79a;
+    --observed-bg: #14231c;
+    --assumption: #e6a44a;
+    --assumption-bg: #2a2013;
+    --derived: #7aaee8;
+    --derived-bg: #16202c;
+    --warn: #d9a44a;
+    --warn-bg: #26200f;
+    --danger: #e08078;
+    --danger-bg: #2a1614;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+.wrap {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 20px 96px;
+}
+
+/* ---------------------------------------------------------------- masthead */
+
+.masthead {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.masthead-inner {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.wordmark {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.masthead nav {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-left: auto;
+}
+.masthead nav a { text-decoration: none; }
+.masthead nav a:hover { color: var(--ink); text-decoration: underline; }
+
+/* ------------------------------------------------------------------ typography */
+
+h1 {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--ink-3);
+  font-weight: 600;
+  margin: 44px 0 14px;
+}
+.lede { font-size: 17px; color: var(--ink-2); margin: 0 0 8px; max-width: 66ch; }
+.muted { color: var(--ink-3); }
+.small { font-size: 13px; }
+code, .mono { font-family: var(--mono); font-size: 0.92em; }
+
+/* ------------------------------------------------------------------ claims */
+
+.claim {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.claim-q {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 10px;
+  max-width: 62ch;
+}
+.claim-value {
+  font-family: var(--mono);
+  font-size: 38px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: block;
+  margin-bottom: 12px;
+}
+.claim-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+}
+.claim-meta a { color: var(--derived); }
+
+.withheld {
+  border-style: dashed;
+  border-color: var(--border-strong);
+}
+.withheld .claim-value { color: var(--ink-3); }
+
+/* ------------------------------------------------------------------ badges */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-ok { color: var(--observed); background: var(--observed-bg); border-color: var(--observed); }
+.badge-warn { color: var(--warn); background: var(--warn-bg); border-color: var(--warn); }
+.badge-assume { color: var(--assumption); background: var(--assumption-bg); border-color: var(--assumption); }
+.badge-danger { color: var(--danger); background: var(--danger-bg); border-color: var(--danger); }
+.badge-plain { color: var(--ink-3); border-color: var(--border-strong); }
+
+/* ------------------------------------------------------------------ trace tree */
+
+.trace {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+}
+
+/* The formula in words — the FIRST thing anyone reads. */
+.formula-plain {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 12px;
+  max-width: 62ch;
+}
+.child .formula-plain { font-size: 14.5px; margin-bottom: 8px; }
+
+/* Collapsed technical detail. Present for anyone who wants it, never in the way. */
+.detail { margin: 0 0 6px; }
+.detail > summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 0;
+  user-select: none;
+}
+.detail > summary::-webkit-details-marker { display: none; }
+.detail > summary::before { content: "▸"; font-size: 9px; transition: transform 0.12s; }
+.detail[open] > summary::before { transform: rotate(90deg); }
+.detail > summary:hover { color: var(--ink-2); text-decoration: underline; }
+
+.detail-formula { margin-bottom: 16px; }
+
+.formula {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 9px 12px;
+  margin: 8px 0 4px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.formula-ref { font-size: 11px; color: var(--ink-3); font-family: var(--mono); }
+
+.section-hint {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  margin: 18px 0 6px;
+  font-weight: 600;
+}
+
+.nodes { list-style: none; margin: 0; padding: 0; }
+
+.node {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+.node:last-child { border-bottom: none; }
+
+.node-mark { font-size: 11px; line-height: 1.6; text-align: center; }
+/*
+ * Direct-child selectors, deliberately. A derived node CONTAINS its child's nodes, so a
+ * descendant selector here repaints every nested marker with the parent's colour — which
+ * is exactly the bug that showed up the first time this rendered.
+ */
+.node-observed > .node-mark { color: var(--observed); }
+.node-assumption > .node-mark { color: var(--assumption); }
+.node-derived-head > .node-mark { color: var(--derived); }
+
+.node-label { min-width: 0; }
+.node-name { display: block; font-size: 14px; font-weight: 600; }
+
+/* The plain description — the line most readers actually read. */
+.node-plain {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 3px;
+  max-width: 60ch;
+}
+
+.node-sub {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  margin-top: 5px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+.node-sub a { color: var(--ink-3); }
+
+.node-value {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* An assumption is the contestable part — it must not read like an observation. */
+.node-assumption {
+  background: var(--assumption-bg);
+  border-left: 3px solid var(--assumption);
+  margin: 10px -22px;
+  padding: 14px 22px 14px 19px;
+  border-bottom: none;
+  border-radius: 0 4px 4px 0;
+}
+.node-assumption .node-value { color: var(--assumption); }
+.rationale {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 5px 0 8px;
+  max-width: 62ch;
+  line-height: 1.55;
+}
+
+.node-derived { display: block; padding: 11px 0; }
+.node-derived-head {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.child {
+  margin: 12px 0 4px 18px;
+  padding-left: 18px;
+  border-left: 2px solid var(--border);
+}
+
+.steps { margin-top: 18px; padding-top: 4px; border-top: 1px dashed var(--border); }
+.step { padding: 7px 0; }
+.step-plain { display: block; font-size: 14px; color: var(--ink); }
+.step-sum {
+  display: block;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------------ warnings */
+
+.warning {
+  display: flex;
+  gap: 9px;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn);
+  border-left-width: 3px;
+  border-radius: 4px;
+  padding: 10px 13px;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 8px;
+  max-width: 72ch;
+}
+.warning-mark { color: var(--warn); font-weight: 700; }
+
+.notice {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-left-width: 3px;
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  margin-bottom: 18px;
+  max-width: 72ch;
+}
+
+/* ------------------------------------------------------------------ hash + challenge */
+
+.hash {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  word-break: break-all;
+}
+.hash-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.challenge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--assumption);
+  border: 1px solid var(--assumption);
+  background: transparent;
+  border-radius: 4px;
+  padding: 3px 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.challenge:hover { background: var(--assumption-bg); }
+
+/* ------------------------------------------------------------------ misc */
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+
+.stat {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  padding: 16px 18px;
+}
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+.stat-value { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 4px; }
+.stat-note { font-size: 12px; color: var(--ink-2); margin-top: 8px; line-height: 1.5; max-width: 44ch; }
+
+.event { border-left: 2px solid var(--border-strong); padding: 0 0 20px 16px; position: relative; }
+.event::before {
+  content: "";
+  position: absolute;
+  left: -5px; top: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+.event-date { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); }
+.event-title { font-size: 15px; font-weight: 600; margin: 2px 0 4px; }
+.event-body { font-size: 13px; color: var(--ink-2); max-width: 68ch; line-height: 1.55; }
+.event-claims { margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+.event-claim { font-size: 12.5px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.effect { font-family: var(--mono); font-weight: 600; }
+.effect-neg { color: var(--danger); }
+.effect-pos { color: var(--observed); }
+
+table.plain { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.plain th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-3);
+  font-weight: 600;
+  padding: 0 12px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+table.plain td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.plain td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+
+footer.foot {
+  border-top: 1px solid var(--border);
+  margin-top: 56px;
+  padding-top: 20px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.6;
+}
+
+@media (max-width: 620px) {
+  h1 { font-size: 27px; }
+  .claim-value { font-size: 30px; }
+  .node, .node-derived-head { grid-template-columns: 16px 1fr; }
+  .node-value { grid-column: 2; text-align: left; margin-top: 6px; }
+  .formula-plain { font-size: 15.5px; }
+}
+
+/* ------------------------------------------------------- expandable evidence */
+
+.event-detail { margin: 0 0 6px; }
+.event-detail > summary {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+.event-detail > summary::before { color: var(--ink-3); flex: none; }
+.event-expand {
+  padding: 4px 0 10px 16px;
+  border-left: 2px solid var(--border);
+  margin-left: 3px;
+}
+.event-expand p { font-size: 13.5px; line-height: 1.55; }

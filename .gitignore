@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+*.log
+.DS_Store
+
+# Real-secrets files are user-touched only and never committed.
+.env
+.env.*
+!.env*.example
+*.pem
+credentials.json
+
+# Conversations, transcripts and strategy notes never belong in a repo.
+*-transcript.md
+*-conversation.md
+notes.local.md

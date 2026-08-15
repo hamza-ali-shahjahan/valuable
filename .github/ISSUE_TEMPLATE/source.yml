@@ -1,0 +1,69 @@
+name: Propose a better source
+description: Suggest a more authoritative source, a newer vintage, or a licence correction
+title: "[source] "
+labels: ["source"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sources are the foundation everything else rests on. Two things we especially want:
+
+        - **A figure we've flagged `needsVerification`** — those are withheld from
+          publication until someone verifies them against a primary source.
+        - **A licence correction.** We refuse sources we can't legally redistribute
+          (see `docs/01-DATA-SPINE.md` §7). If we've got one wrong in either direction,
+          that matters.
+
+  - type: input
+    id: current
+    attributes:
+      label: Which figure or source?
+      placeholder: UK population — currently "ONS mid-year population estimate", flagged unverified
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of improvement?
+      options:
+        - A more authoritative primary source
+        - A newer vintage of the same series
+        - A figure we flagged unverified that you can verify
+        - A licence correction (we may or may not redistribute this)
+        - A methodology break we've missed (series not comparable across editions)
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Source URL
+    validations:
+      required: true
+
+  - type: input
+    id: vintage
+    attributes:
+      label: Vintage
+      description: The date of the observation, not of publication.
+      placeholder: "2025-12-31"
+    validations:
+      required: true
+
+  - type: textarea
+    id: licence
+    attributes:
+      label: Licence
+      description: |
+        Can this be redistributed commercially? Quote the actual terms if you can — this is
+        where we've been caught out before (BIS forbids use behind a paid tier; TI CPI is
+        likely CC BY-ND, which blocks derived scores).
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Known breaks, revisions, or gotchas in the series.

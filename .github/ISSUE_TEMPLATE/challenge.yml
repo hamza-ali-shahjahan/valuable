@@ -1,0 +1,81 @@
+name: Challenge a calculation
+description: Dispute a specific step, input or assumption in a published valuation
+title: "[challenge] "
+labels: ["challenge"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for auditing us. **A challenge anchored to a specific step is worth ten
+        arguments about a headline number**, which is why this form asks for the trace hash.
+
+        Every number on the site links here with the hash pre-filled. If you got here
+        another way, run `bun run verify` and copy the hash of the computation you're
+        disputing.
+
+  - type: input
+    id: trace
+    attributes:
+      label: Trace hash
+      description: The sha256 of the exact computation you're challenging.
+      placeholder: 319c6e7f10ff1c4d…
+    validations:
+      required: true
+
+  - type: input
+    id: engine
+    attributes:
+      label: Engine version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target
+    attributes:
+      label: What are you challenging?
+      options:
+        - An assumption (a judgement we made)
+        - An input value (a figure we read from a source)
+        - The vintage of an input (right figure, wrong period)
+        - A step in the arithmetic
+        - The formula itself
+        - The question the number claims to answer
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: What is wrong?
+      description: Be specific. Name the step or input.
+      placeholder: |
+        §2.2 uses ONS human capital (3.5% discount, 2% productivity growth) but labels the
+        result "comprehensive wealth", which is the CWON construct. Those conventions are
+        not interchangeable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: |
+        A primary source beats an argument. If you're disputing a figure, link the source
+        and give its vintage.
+    validations:
+      required: true
+
+  - type: textarea
+    id: correction
+    attributes:
+      label: What should it be instead?
+      description: Optional, but a proposed correction is far more actionable than a complaint.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I ran `bun run verify` and the hash I'm quoting matches
+        - label: I've checked this isn't already in `REFUTED_FIGURES` in `engine/events.ts`
