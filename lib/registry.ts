@@ -8,6 +8,7 @@
 
 import { ukValuation, type ClaimView } from "../engine/valuations.ts";
 import { valuableCountries, countryWealth, countryWealthPerCapita } from "../engine/countries.ts";
+import { allMetros, metroValue } from "../engine/metros.ts";
 import type { Trace, Traced } from "../engine/trace.ts";
 
 export interface RegistryEntry {
@@ -82,6 +83,17 @@ const build = (): void => {
     const pc = countryWealthPerCapita(c);
     if (pc) register(pc.trace, pc.value, shortLabel(pc.trace.question), {
       isTopLevel: true, publishable: true, country,
+    });
+  }
+
+
+  // --- European metros -----------------------------------------------------
+  for (const m of allMetros()) {
+    const v = metroValue(m);
+    if (!v) continue;
+    register(v.trace, v.value, shortLabel(v.trace.question), {
+      isTopLevel: true, publishable: true,
+      country: { iso3: m.country, name: m.name, href: `/metro/${m.code.toLowerCase()}` },
     });
   }
 };

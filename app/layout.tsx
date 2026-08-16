@@ -18,7 +18,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <a className="wordmark" href="/">Valuable</a>
             <span className="small muted mono">show your working</span>
             <nav>
-              <a href="/countries">All countries</a>
+              <a href="/countries">Countries</a>
+              <a href="/metros">Cities</a>
               <a href="/country/uk">United Kingdom</a>
               <a href="/method">Method</a>
             </nav>

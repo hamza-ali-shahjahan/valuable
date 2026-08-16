@@ -1,0 +1,2055 @@
+{
+ "source": "Eurostat",
+ "licence": "Commission Decision 2011/833/EU — commercial reuse authorised with attribution",
+ "attribution": "Eurostat, GDP and population by metropolitan region",
+ "url": "https://ec.europa.eu/eurostat/databrowser/view/met_10r_3gdp",
+ "year": 2021,
+ "frozenAt": "2024-02-28T23:00:00+0100",
+ "datasets": {
+  "gdp": "met_10r_3gdp",
+  "population": "met_pjanaggr3"
+ },
+ "note": "Eurostat's metropolitan GDP series was last updated 2024-02-28 and stops at 2022, which is only fractionally populated. 2021 is the last complete year. London is absent because the UK left the EU.",
+ "metros": [
+  {
+   "code": "FR001MC",
+   "name": "Paris",
+   "country": "FR",
+   "isCapital": true,
+   "gdpEur": 757630000000,
+   "population": 12348605
+  },
+  {
+   "code": "ES001MC",
+   "name": "Madrid",
+   "country": "ES",
+   "isCapital": true,
+   "gdpEur": 237540000000,
+   "population": 6755828
+  },
+  {
+   "code": "IE001MC",
+   "name": "Dublin",
+   "country": "IE",
+   "isCapital": true,
+   "gdpEur": 230366400000,
+   "population": 2160781
+  },
+  {
+   "code": "IT002M",
+   "name": "Milano",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 228436020000,
+   "population": 4339269
+  },
+  {
+   "code": "DE001MC",
+   "name": "Berlin",
+   "country": "DE",
+   "isCapital": true,
+   "gdpEur": 217928000000,
+   "population": 5351765
+  },
+  {
+   "code": "DE003M",
+   "name": "München",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 213352000000,
+   "population": 2932668
+  },
+  {
+   "code": "NL002MC",
+   "name": "Amsterdam",
+   "country": "NL",
+   "isCapital": true,
+   "gdpEur": 201100000000,
+   "population": 3316712
+  },
+  {
+   "code": "BE001MC",
+   "name": "Bruxelles / Brussel",
+   "country": "BE",
+   "isCapital": true,
+   "gdpEur": 181548840000,
+   "population": 3328568
+  },
+  {
+   "code": "DE038M",
+   "name": "Ruhrgebiet",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 180467000000,
+   "population": 5102484
+  },
+  {
+   "code": "DE002M",
+   "name": "Hamburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 179525000000,
+   "population": 3353084
+  },
+  {
+   "code": "ES002M",
+   "name": "Barcelona",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 173722000000,
+   "population": 5639523
+  },
+  {
+   "code": "SE001MC",
+   "name": "Stockholm",
+   "country": "SE",
+   "isCapital": true,
+   "gdpEur": 171268720000,
+   "population": 2391990
+  },
+  {
+   "code": "IT001MC",
+   "name": "Roma",
+   "country": "IT",
+   "isCapital": true,
+   "gdpEur": 163461870000,
+   "population": 4231451
+  },
+  {
+   "code": "DE005M",
+   "name": "Frankfurt am Main",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 160841000000,
+   "population": 2735932
+  },
+  {
+   "code": "DE007M",
+   "name": "Stuttgart",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 155726000000,
+   "population": 2787858
+  },
+  {
+   "code": "DK001MC",
+   "name": "København",
+   "country": "DK",
+   "isCapital": true,
+   "gdpEur": 155574530000,
+   "population": 2067916
+  },
+  {
+   "code": "CH001M",
+   "name": "Zürich",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 140799630000,
+   "population": 1553423
+  },
+  {
+   "code": "AT001MC",
+   "name": "Wien",
+   "country": "AT",
+   "isCapital": true,
+   "gdpEur": 140330190000,
+   "population": 2890577
+  },
+  {
+   "code": "FR203M",
+   "name": "Marseille",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 125382000000,
+   "population": 3146578
+  },
+  {
+   "code": "IE002M",
+   "name": "Cork",
+   "country": "IE",
+   "isCapital": false,
+   "gdpEur": 115680970000,
+   "population": 719187
+  },
+  {
+   "code": "DE004M",
+   "name": "Köln",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 102257000000,
+   "population": 2000289
+  },
+  {
+   "code": "PL001MC",
+   "name": "Warszawa",
+   "country": "PL",
+   "isCapital": true,
+   "gdpEur": 99747970000,
+   "population": 3242890
+  },
+  {
+   "code": "FI001MC",
+   "name": "Helsinki",
+   "country": "FI",
+   "isCapital": true,
+   "gdpEur": 98663450000,
+   "population": 1702678
+  },
+  {
+   "code": "FR003M",
+   "name": "Lyon",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 97306000000,
+   "population": 1899599
+  },
+  {
+   "code": "DE011M",
+   "name": "Düsseldorf",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 95646000000,
+   "population": 1556846
+  },
+  {
+   "code": "NL003M",
+   "name": "Rotterdam",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 95187000000,
+   "population": 1834417
+  },
+  {
+   "code": "CZ001MC",
+   "name": "Praha",
+   "country": "CZ",
+   "isCapital": true,
+   "gdpEur": 93516790000,
+   "population": 2632001
+  },
+  {
+   "code": "SE002M",
+   "name": "Göteborg",
+   "country": "SE",
+   "isCapital": false,
+   "gdpEur": 88581550000,
+   "population": 1734443
+  },
+  {
+   "code": "FR009M",
+   "name": "Lille - Dunkerque - Valenciennes",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 85949000000,
+   "population": 2607879
+  },
+  {
+   "code": "NL004M",
+   "name": "Utrecht",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 83278000000,
+   "population": 1361153
+  },
+  {
+   "code": "EL001MC",
+   "name": "Athina",
+   "country": "EL",
+   "isCapital": true,
+   "gdpEur": 82615470000,
+   "population": 3547391
+  },
+  {
+   "code": "CH004MC",
+   "name": "Bern",
+   "country": "CH",
+   "isCapital": true,
+   "gdpEur": 78596980000,
+   "population": 1043132
+  },
+  {
+   "code": "PT001MC",
+   "name": "Lisboa",
+   "country": "PT",
+   "isCapital": true,
+   "gdpEur": 76602810000,
+   "population": 2869033
+  },
+  {
+   "code": "IT004M",
+   "name": "Torino",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 75853990000,
+   "population": 2219206
+  },
+  {
+   "code": "HU001MC",
+   "name": "Budapest",
+   "country": "HU",
+   "isCapital": true,
+   "gdpEur": 73690090000,
+   "population": 3033638
+  },
+  {
+   "code": "LU001MC",
+   "name": "Luxembourg",
+   "country": "LU",
+   "isCapital": true,
+   "gdpEur": 72360860000,
+   "population": 634730
+  },
+  {
+   "code": "NO001MC",
+   "name": "Oslo",
+   "country": "NO",
+   "isCapital": true,
+   "gdpEur": 70969760000,
+   "population": 697010
+  },
+  {
+   "code": "DE014M",
+   "name": "Nürnberg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 69562000000,
+   "population": 1352318
+  },
+  {
+   "code": "RO001MC",
+   "name": "Bucuresti",
+   "country": "RO",
+   "isCapital": true,
+   "gdpEur": 67622649999.99999,
+   "population": 2327057
+  },
+  {
+   "code": "CH003M",
+   "name": "Basel",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 64921000000,
+   "population": 716546
+  },
+  {
+   "code": "SE003M",
+   "name": "Malmö",
+   "country": "SE",
+   "isCapital": false,
+   "gdpEur": 62349450000,
+   "population": 1389336
+  },
+  {
+   "code": "ES003M",
+   "name": "Valencia",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 61411000000,
+   "population": 2574888
+  },
+  {
+   "code": "FR007M",
+   "name": "Bordeaux",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 61279000000,
+   "population": 1661929
+  },
+  {
+   "code": "IT003M",
+   "name": "Napoli",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 61059080000,
+   "population": 2986745
+  },
+  {
+   "code": "DE013M",
+   "name": "Hannover",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 60296000000,
+   "population": 1313736
+  },
+  {
+   "code": "FR004M",
+   "name": "Toulouse",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 59033000000,
+   "population": 1434439
+  },
+  {
+   "code": "CH005M",
+   "name": "Lausanne",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 58326100000,
+   "population": 814762
+  },
+  {
+   "code": "DE083M",
+   "name": "Braunschweig-Salzgitter-Wolfsburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 57542000000,
+   "population": 1000217
+  },
+  {
+   "code": "BE002M",
+   "name": "Antwerpen",
+   "country": "BE",
+   "isCapital": false,
+   "gdpEur": 56876420000,
+   "population": 1062427
+  },
+  {
+   "code": "DE084M",
+   "name": "Mannheim-Ludwigshafen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 56100000000,
+   "population": 1193848
+  },
+  {
+   "code": "NL001M",
+   "name": "s' Gravenhage",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 56038000000,
+   "population": 1122240
+  },
+  {
+   "code": "FR008M",
+   "name": "Nantes",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 54834000000,
+   "population": 1461267
+  },
+  {
+   "code": "DE012M",
+   "name": "Bremen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 53268000000,
+   "population": 1278848
+  },
+  {
+   "code": "CH002M",
+   "name": "Genève",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 52212880000,
+   "population": 506343
+  },
+  {
+   "code": "DK002M",
+   "name": "Århus",
+   "country": "DK",
+   "isCapital": false,
+   "gdpEur": 47205500000,
+   "population": 903974
+  },
+  {
+   "code": "NL005M",
+   "name": "Eindhoven",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 46445000000,
+   "population": 784390
+  },
+  {
+   "code": "DE009M",
+   "name": "Dresden",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 46369000000,
+   "population": 1339330
+  },
+  {
+   "code": "IT029M",
+   "name": "Brescia",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 45428400000,
+   "population": 1255709
+  },
+  {
+   "code": "DE034M",
+   "name": "Bonn",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 45317000000,
+   "population": 930954
+  },
+  {
+   "code": "FR026M",
+   "name": "Grenoble",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 44826000000,
+   "population": 1280557
+  },
+  {
+   "code": "PL010M",
+   "name": "Katowice",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 44569910000,
+   "population": 2578487
+  },
+  {
+   "code": "IT009M",
+   "name": "Bologna",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 43128670000,
+   "population": 1015608
+  },
+  {
+   "code": "FR015M",
+   "name": "Rouen",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 43070000000,
+   "population": 1254203
+  },
+  {
+   "code": "CH006M",
+   "name": "St. Gallen",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 42164380000,
+   "population": 569813
+  },
+  {
+   "code": "FR006M",
+   "name": "Strasbourg",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 41422000000,
+   "population": 1150899
+  },
+  {
+   "code": "AT003M",
+   "name": "Linz",
+   "country": "AT",
+   "isCapital": false,
+   "gdpEur": 41413340000,
+   "population": 808545
+  },
+  {
+   "code": "ES004M",
+   "name": "Sevilla",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 40658000000,
+   "population": 1960919
+  },
+  {
+   "code": "DE035M",
+   "name": "Karlsruhe",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 39945000000,
+   "population": 755288
+  },
+  {
+   "code": "FR013M",
+   "name": "Rennes",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 39899000000,
+   "population": 1098420
+  },
+  {
+   "code": "FR205M",
+   "name": "Nice",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 39592000000,
+   "population": 1101039
+  },
+  {
+   "code": "IT511M",
+   "name": "Bergamo",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 39562310000,
+   "population": 1103556
+  },
+  {
+   "code": "IT007M",
+   "name": "Firenze",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 38838170000,
+   "population": 998431
+  },
+  {
+   "code": "FR010M",
+   "name": "Montpellier",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 38387000000,
+   "population": 1203899
+  },
+  {
+   "code": "DE008M",
+   "name": "Leipzig",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 38033000000,
+   "population": 1053323
+  },
+  {
+   "code": "ES021M",
+   "name": "Alicante/Alacant - Elche/Elx",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 37280000000,
+   "population": 1895192
+  },
+  {
+   "code": "NO002M",
+   "name": "Bergen",
+   "country": "NO",
+   "isCapital": false,
+   "gdpEur": 36516190000,
+   "population": 638821
+  },
+  {
+   "code": "ES019M",
+   "name": "Bilbao",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 35447000000,
+   "population": 1139871
+  },
+  {
+   "code": "PT002M",
+   "name": "Porto",
+   "country": "PT",
+   "isCapital": false,
+   "gdpEur": 34898390000,
+   "population": 1727774
+  },
+  {
+   "code": "BE003M",
+   "name": "Gent",
+   "country": "BE",
+   "isCapital": false,
+   "gdpEur": 33553500000,
+   "population": 652327
+  },
+  {
+   "code": "IT028M",
+   "name": "Padova",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 33461470000,
+   "population": 932629
+  },
+  {
+   "code": "BG001MC",
+   "name": "Sofia",
+   "country": "BG",
+   "isCapital": true,
+   "gdpEur": 33258629999.999996,
+   "population": 1667314
+  },
+  {
+   "code": "ES007M",
+   "name": "Murcia - Cartagena",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 32719000000,
+   "population": 1513076
+  },
+  {
+   "code": "DE534M",
+   "name": "Ingolstadt",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 32626000000,
+   "population": 496979
+  },
+  {
+   "code": "IT012M",
+   "name": "Verona",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 32499150000,
+   "population": 927810
+  },
+  {
+   "code": "NL012M",
+   "name": "Breda",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 32245000000,
+   "population": 637031
+  },
+  {
+   "code": "NL009M",
+   "name": "Arnhem - Nijmegen",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 31871000000,
+   "population": 744715
+  },
+  {
+   "code": "DE037M",
+   "name": "Mainz",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 31672000000,
+   "population": 428648
+  },
+  {
+   "code": "NO004M",
+   "name": "Stavanger",
+   "country": "NO",
+   "isCapital": false,
+   "gdpEur": 31582220000,
+   "population": 482645
+  },
+  {
+   "code": "DE522M",
+   "name": "Heidelberg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 31095000000,
+   "population": 706974
+  },
+  {
+   "code": "DE040M",
+   "name": "Saarbrücken",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 30795000000,
+   "population": 794062
+  },
+  {
+   "code": "ES006M",
+   "name": "Málaga - Marbella",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 30776000000,
+   "population": 1696463
+  },
+  {
+   "code": "CH007M",
+   "name": "Lucerne",
+   "country": "CH",
+   "isCapital": false,
+   "gdpEur": 30742750000,
+   "population": 459867
+  },
+  {
+   "code": "AT002M",
+   "name": "Graz",
+   "country": "AT",
+   "isCapital": false,
+   "gdpEur": 30346680000,
+   "population": 646099
+  },
+  {
+   "code": "IT006M",
+   "name": "Genova",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 29039200000,
+   "population": 823612
+  },
+  {
+   "code": "DE529M",
+   "name": "Heilbronn",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 28985000000,
+   "population": 472821
+  },
+  {
+   "code": "PL003M",
+   "name": "Kraków",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 28741590000,
+   "population": 1533641
+  },
+  {
+   "code": "IT008M",
+   "name": "Bari",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 28701620000,
+   "population": 1230158
+  },
+  {
+   "code": "PL005M",
+   "name": "Poznan",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 28602630000,
+   "population": 1241984
+  },
+  {
+   "code": "DE027M",
+   "name": "Freiburg im Breisgau",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 28149000000,
+   "population": 662669
+  },
+  {
+   "code": "SK001MC",
+   "name": "Bratislava",
+   "country": "SK",
+   "isCapital": true,
+   "gdpEur": 28104140000,
+   "population": 677024
+  },
+  {
+   "code": "ES005M",
+   "name": "Zaragoza",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 27897000000,
+   "population": 976473
+  },
+  {
+   "code": "DE033M",
+   "name": "Augsburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 27556000000,
+   "population": 686754
+  },
+  {
+   "code": "DK004M",
+   "name": "Aalborg",
+   "country": "DK",
+   "isCapital": false,
+   "gdpEur": 27459880000,
+   "population": 590439
+  },
+  {
+   "code": "ES026M",
+   "name": "A Coruña",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 27348000000,
+   "population": 1121758
+  },
+  {
+   "code": "FR037M",
+   "name": "Brest",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 27233000000,
+   "population": 919983
+  },
+  {
+   "code": "IT011M",
+   "name": "Venezia",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 26470220000,
+   "population": 843545
+  },
+  {
+   "code": "BE005M",
+   "name": "Liège",
+   "country": "BE",
+   "isCapital": false,
+   "gdpEur": 26413190000,
+   "population": 824173
+  },
+  {
+   "code": "NL008M",
+   "name": "Enschede",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 26173000000,
+   "population": 631733
+  },
+  {
+   "code": "NO003M",
+   "name": "Trondheim",
+   "country": "NO",
+   "isCapital": false,
+   "gdpEur": 26143110000,
+   "population": 471124
+  },
+  {
+   "code": "DE504M",
+   "name": "Münster",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 26053000000,
+   "population": 537115
+  },
+  {
+   "code": "CZ002M",
+   "name": "Brno",
+   "country": "CZ",
+   "isCapital": false,
+   "gdpEur": 25938400000,
+   "population": 1181216
+  },
+  {
+   "code": "FR048M",
+   "name": "Annecy (FR) / Genève (CH)",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 25474000000,
+   "population": 841639
+  },
+  {
+   "code": "FR036M",
+   "name": "Angers",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 24955000000,
+   "population": 822488
+  },
+  {
+   "code": "CY001MC",
+   "name": "Lefkosia",
+   "country": "CY",
+   "isCapital": true,
+   "gdpEur": 24927630000,
+   "population": 896007
+  },
+  {
+   "code": "HR001MC",
+   "name": "Zagreb",
+   "country": "HR",
+   "isCapital": true,
+   "gdpEur": 24906680000,
+   "population": 1242431
+  },
+  {
+   "code": "DE039M",
+   "name": "Kiel",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 24523000000,
+   "population": 650719
+  },
+  {
+   "code": "IT005M",
+   "name": "Palermo",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 24380070000,
+   "population": 1208819
+  },
+  {
+   "code": "LT001MC",
+   "name": "Vilnius",
+   "country": "LT",
+   "isCapital": true,
+   "gdpEur": 24362110000,
+   "population": 829983
+  },
+  {
+   "code": "ES010M",
+   "name": "Palma de Mallorca",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 24358000000,
+   "population": 948004
+  },
+  {
+   "code": "DE020M",
+   "name": "Wiesbaden",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 24350000000,
+   "population": 466042
+  },
+  {
+   "code": "DE532M",
+   "name": "Ulm",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 24044000000,
+   "population": 500432
+  },
+  {
+   "code": "ES510M",
+   "name": "Guipúzcoa",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 23839000000,
+   "population": 716279
+  },
+  {
+   "code": "PL006M",
+   "name": "Gdansk",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 23780990000,
+   "population": 1360005
+  },
+  {
+   "code": "DE028M",
+   "name": "Regensburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 23629000000,
+   "population": 469935
+  },
+  {
+   "code": "DE025M",
+   "name": "Darmstadt",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 23554000000,
+   "population": 456875
+  },
+  {
+   "code": "ES013M",
+   "name": "Oviedo - Gijón",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 23550000000,
+   "population": 1012889
+  },
+  {
+   "code": "FR019M",
+   "name": "Orléans",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 23062000000,
+   "population": 684609
+  },
+  {
+   "code": "LV001MC",
+   "name": "Riga",
+   "country": "LV",
+   "isCapital": true,
+   "gdpEur": 22960690000,
+   "population": 993600
+  },
+  {
+   "code": "FR040M",
+   "name": "Mulhouse",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 22945000000,
+   "population": 767736
+  },
+  {
+   "code": "DE507M",
+   "name": "Aachen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 22907000000,
+   "population": 556631
+  },
+  {
+   "code": "FR022M",
+   "name": "Clermont-Ferrand",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 22892000000,
+   "population": 669014
+  },
+  {
+   "code": "FR011M",
+   "name": "Saint-Etienne",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 22655000000,
+   "population": 766473
+  },
+  {
+   "code": "ES522M",
+   "name": "Cádiz",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 22636000000,
+   "population": 1258153
+  },
+  {
+   "code": "NL007M",
+   "name": "Groningen",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 22480000000,
+   "population": 451098
+  },
+  {
+   "code": "FR045M",
+   "name": "Pau",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 22318000000,
+   "population": 688474
+  },
+  {
+   "code": "DE524M",
+   "name": "Würzburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 22191000000,
+   "population": 507323
+  },
+  {
+   "code": "FI002M",
+   "name": "Tampere",
+   "country": "FI",
+   "isCapital": false,
+   "gdpEur": 22104380000,
+   "population": 520691
+  },
+  {
+   "code": "AT004M",
+   "name": "Salzburg",
+   "country": "AT",
+   "isCapital": false,
+   "gdpEur": 22093080000,
+   "population": 371032
+  },
+  {
+   "code": "ES022M",
+   "name": "Vigo",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 21988000000,
+   "population": 943430
+  },
+  {
+   "code": "DK003M",
+   "name": "Odense",
+   "country": "DK",
+   "isCapital": false,
+   "gdpEur": 21744830000,
+   "population": 499419
+  },
+  {
+   "code": "FR023M",
+   "name": "Caen",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 21290000000,
+   "population": 695207
+  },
+  {
+   "code": "IT010M",
+   "name": "Catania",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 21020060000,
+   "population": 1074089
+  },
+  {
+   "code": "FR016M",
+   "name": "Nancy",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 20841000000,
+   "population": 732085
+  },
+  {
+   "code": "NL006M",
+   "name": "Tilburg",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 20814000000,
+   "population": 493004
+  },
+  {
+   "code": "CZ003M",
+   "name": "Ostrava",
+   "country": "CZ",
+   "isCapital": false,
+   "gdpEur": 20780590000,
+   "population": 1183440
+  },
+  {
+   "code": "DE517M",
+   "name": "Osnabrück",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 20721000000,
+   "population": 523694
+  },
+  {
+   "code": "ES014M",
+   "name": "Pamplona/Iruña",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 20519000000,
+   "population": 657654
+  },
+  {
+   "code": "FR018M",
+   "name": "Reims",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 20385000000,
+   "population": 563998
+  },
+  {
+   "code": "IT505M",
+   "name": "Reggio nell Emilia",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 20311180000,
+   "population": 527140
+  },
+  {
+   "code": "SI001MC",
+   "name": "Ljubljana",
+   "country": "SI",
+   "isCapital": true,
+   "gdpEur": 20255500000,
+   "population": 555948
+  },
+  {
+   "code": "FI003M",
+   "name": "Turku",
+   "country": "FI",
+   "isCapital": false,
+   "gdpEur": 20008500000,
+   "population": 481403
+  },
+  {
+   "code": "FR044M",
+   "name": "Nimes",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 19908000000,
+   "population": 751840
+  },
+  {
+   "code": "FR020M",
+   "name": "Dijon",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 19648000000,
+   "population": 534164
+  },
+  {
+   "code": "FR035M",
+   "name": "Tours",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 19586000000,
+   "population": 612237
+  },
+  {
+   "code": "SE006M",
+   "name": "Uppsala",
+   "country": "SE",
+   "isCapital": false,
+   "gdpEur": 19079680000,
+   "population": 388394
+  },
+  {
+   "code": "IT503M",
+   "name": "Parma",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 19032420000,
+   "population": 449628
+  },
+  {
+   "code": "DE073M",
+   "name": "Offenburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 18902000000,
+   "population": 432580
+  },
+  {
+   "code": "EE001MC",
+   "name": "Tallinn",
+   "country": "EE",
+   "isCapital": true,
+   "gdpEur": 18861000000,
+   "population": 613158
+  },
+  {
+   "code": "DE032M",
+   "name": "Erfurt",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 18745000000,
+   "population": 522968
+  },
+  {
+   "code": "ES025M",
+   "name": "Santa Cruz de Tenerife",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 18680000000,
+   "population": 972167
+  },
+  {
+   "code": "PL002M",
+   "name": "Lódz",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 18415100000,
+   "population": 1054668
+  },
+  {
+   "code": "DE513M",
+   "name": "Kassel",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 18084000000,
+   "population": 438055
+  },
+  {
+   "code": "IT016M",
+   "name": "Perugia",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 17527160000,
+   "population": 645506
+  },
+  {
+   "code": "NL507M",
+   "name": "Leiden",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 17520000000,
+   "population": 431595
+  },
+  {
+   "code": "NL511M",
+   "name": "Zwolle",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 17295000000,
+   "population": 377292
+  },
+  {
+   "code": "ES501M",
+   "name": "Granada",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 17141000000,
+   "population": 928381
+  },
+  {
+   "code": "DE019M",
+   "name": "Magdeburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 17112000000,
+   "population": 495745
+  },
+  {
+   "code": "DE061M",
+   "name": "Aschaffenburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 16613000000,
+   "population": 374259
+  },
+  {
+   "code": "PL004M",
+   "name": "Wroclaw",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 16579230000,
+   "population": 670219
+  },
+  {
+   "code": "DE520M",
+   "name": "Oldenburg (Oldenburg)",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 16576000000,
+   "population": 426715
+  },
+  {
+   "code": "ES008M",
+   "name": "Las Palmas",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 16562000000,
+   "population": 873411
+  },
+  {
+   "code": "DE021M",
+   "name": "Göttingen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 16559000000,
+   "population": 455672
+  },
+  {
+   "code": "FR014M",
+   "name": "Amiens",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 16460000000,
+   "population": 567745
+  },
+  {
+   "code": "DE510M",
+   "name": "Lübeck",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 16156000000,
+   "population": 417333
+  },
+  {
+   "code": "EL002M",
+   "name": "Thessaloniki",
+   "country": "EL",
+   "isCapital": false,
+   "gdpEur": 16002590000,
+   "population": 1096665
+  },
+  {
+   "code": "FR025M",
+   "name": "Besançon",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 15970000000,
+   "population": 546224
+  },
+  {
+   "code": "DE042M",
+   "name": "Koblenz",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 15881000000,
+   "population": 328174
+  },
+  {
+   "code": "DE045M",
+   "name": "Iserlohn",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 15775000000,
+   "population": 408662
+  },
+  {
+   "code": "FR038M",
+   "name": "Le Mans",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 15595000000,
+   "population": 565314
+  },
+  {
+   "code": "DE018M",
+   "name": "Halle an der Saale",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 15509000000,
+   "population": 421299
+  },
+  {
+   "code": "DE549M",
+   "name": "Bocholt",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 15141000000,
+   "population": 371898
+  },
+  {
+   "code": "DE540M",
+   "name": "Siegen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 14936000000,
+   "population": 404578
+  },
+  {
+   "code": "DE017M",
+   "name": "Bielefeld",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 14847000000,
+   "population": 333509
+  },
+  {
+   "code": "DE043M",
+   "name": "Rostock",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 14788000000,
+   "population": 426133
+  },
+  {
+   "code": "AT005M",
+   "name": "Innsbruck",
+   "country": "AT",
+   "isCapital": false,
+   "gdpEur": 14787600000,
+   "population": 312757
+  },
+  {
+   "code": "BE004M",
+   "name": "Charleroi",
+   "country": "BE",
+   "isCapital": false,
+   "gdpEur": 14734470000,
+   "population": 556470
+  },
+  {
+   "code": "MT001MC",
+   "name": "Valletta",
+   "country": "MT",
+   "isCapital": true,
+   "gdpEur": 14675870000,
+   "population": 481537
+  },
+  {
+   "code": "ES020M",
+   "name": "Córdoba",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 14616000000,
+   "population": 781186
+  },
+  {
+   "code": "ES009M",
+   "name": "Valladolid",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 14294000000,
+   "population": 519091
+  },
+  {
+   "code": "ES015M",
+   "name": "Santander",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 14022000000,
+   "population": 583655
+  },
+  {
+   "code": "DE546M",
+   "name": "Wuppertal",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 13617000000,
+   "population": 355004
+  },
+  {
+   "code": "DE069M",
+   "name": "Rosenheim",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 13073000000,
+   "population": 325312
+  },
+  {
+   "code": "ES012M",
+   "name": "Vitoria/Gasteiz",
+   "country": "ES",
+   "isCapital": false,
+   "gdpEur": 12940000000,
+   "population": 329758
+  },
+  {
+   "code": "FR021M",
+   "name": "Poitiers",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 12849000000,
+   "population": 439635
+  },
+  {
+   "code": "RO002M",
+   "name": "Cluj-Napoca",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 12471320000,
+   "population": 710284
+  },
+  {
+   "code": "DE537M",
+   "name": "Reutlingen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 12270000000,
+   "population": 287497
+  },
+  {
+   "code": "SK002M",
+   "name": "Kosice",
+   "country": "SK",
+   "isCapital": false,
+   "gdpEur": 12252710000,
+   "population": 802092
+  },
+  {
+   "code": "FR043M",
+   "name": "Perpignan",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 12252000000,
+   "population": 483558
+  },
+  {
+   "code": "IT027M",
+   "name": "Cagliari",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 12058640000,
+   "population": 421488
+  },
+  {
+   "code": "DE533M",
+   "name": "Pforzheim",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 12031000000,
+   "population": 325768
+  },
+  {
+   "code": "PL008M",
+   "name": "Bydgoszcz - Torún",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 11904340000,
+   "population": 751413
+  },
+  {
+   "code": "DE523M",
+   "name": "Paderborn",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 11897000000,
+   "population": 308335
+  },
+  {
+   "code": "LT002M",
+   "name": "Kaunas",
+   "country": "LT",
+   "isCapital": false,
+   "gdpEur": 11690210000,
+   "population": 565628
+  },
+  {
+   "code": "DE077M",
+   "name": "Schweinfurt",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 11663000000,
+   "population": 272140
+  },
+  {
+   "code": "CZ004M",
+   "name": "Plzen",
+   "country": "CZ",
+   "isCapital": false,
+   "gdpEur": 11587160000,
+   "population": 576358
+  },
+  {
+   "code": "IT501M",
+   "name": "Messina",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 11585160000,
+   "population": 603980
+  },
+  {
+   "code": "IT022M",
+   "name": "Taranto",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 11491000000,
+   "population": 561958
+  },
+  {
+   "code": "FR024M",
+   "name": "Limoges",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 11268000000,
+   "population": 370651
+  },
+  {
+   "code": "NL015M",
+   "name": "Leeuwarden",
+   "country": "NL",
+   "isCapital": false,
+   "gdpEur": 11255000000,
+   "population": 321562
+  },
+  {
+   "code": "RO003M",
+   "name": "Timisoara",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 11147480000,
+   "population": 705500
+  },
+  {
+   "code": "DE054M",
+   "name": "Konstanz",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 11111000000,
+   "population": 286876
+  },
+  {
+   "code": "DE057M",
+   "name": "Gießen",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 10718000000,
+   "population": 271667
+  },
+  {
+   "code": "BE007M",
+   "name": "Namur",
+   "country": "BE",
+   "isCapital": false,
+   "gdpEur": 10451790000,
+   "population": 319928
+  },
+  {
+   "code": "DE544M",
+   "name": "Zwickau",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 10231000000,
+   "population": 312033
+  },
+  {
+   "code": "DE059M",
+   "name": "Bayreuth",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 10183000000,
+   "population": 249155
+  },
+  {
+   "code": "DE031M",
+   "name": "Schwerin",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 10128000000,
+   "population": 307453
+  },
+  {
+   "code": "DE052M",
+   "name": "Flensburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 10115000000,
+   "population": 292581
+  },
+  {
+   "code": "PL009M",
+   "name": "Lublin",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 9764630000,
+   "population": 687985
+  },
+  {
+   "code": "FR520M",
+   "name": "Les Abymes",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 9731000000,
+   "population": 408142
+  },
+  {
+   "code": "PL506M",
+   "name": "Bielsko-Biala",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 9724600000,
+   "population": 648427
+  },
+  {
+   "code": "DE527M",
+   "name": "Bremerhaven",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 9419000000,
+   "population": 312383
+  },
+  {
+   "code": "DE036M",
+   "name": "Mönchengladbach",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 9340000000,
+   "population": 259665
+  },
+  {
+   "code": "RO501M",
+   "name": "Constanta",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 9246440000,
+   "population": 668065
+  },
+  {
+   "code": "DE079M",
+   "name": "Wetzlar",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 9086000000,
+   "population": 253373
+  },
+  {
+   "code": "FR030M",
+   "name": "Fort-de-France",
+   "country": "FR",
+   "isCapital": false,
+   "gdpEur": 8988000000,
+   "population": 356029
+  },
+  {
+   "code": "RO505M",
+   "name": "Ploiesti",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 8842410000,
+   "population": 703368
+  },
+  {
+   "code": "DE044M",
+   "name": "Kaiserslautern",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 8817000000,
+   "population": 276087
+  },
+  {
+   "code": "PL012M",
+   "name": "Kielce",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 8775070000,
+   "population": 708766
+  },
+  {
+   "code": "DE548M",
+   "name": "Düren",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 8482000000,
+   "population": 265140
+  },
+  {
+   "code": "PL016M",
+   "name": "Opole",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 8475010000,
+   "population": 567836
+  },
+  {
+   "code": "RO502M",
+   "name": "Iasi",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 8394129999.999999,
+   "population": 794752
+  },
+  {
+   "code": "PT005M",
+   "name": "Coimbra",
+   "country": "PT",
+   "isCapital": false,
+   "gdpEur": 8369070000,
+   "population": 435574
+  },
+  {
+   "code": "DE542M",
+   "name": "Hildesheim",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 8362000000,
+   "population": 275464
+  },
+  {
+   "code": "PL015M",
+   "name": "Rzeszów",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 8283950000.000001,
+   "population": 615954
+  },
+  {
+   "code": "IT502M",
+   "name": "Prato",
+   "country": "IT",
+   "isCapital": false,
+   "gdpEur": 8238070000,
+   "population": 265269
+  },
+  {
+   "code": "DE064M",
+   "name": "Neubrandenburg",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 7936000000,
+   "population": 258057
+  },
+  {
+   "code": "RO504M",
+   "name": "Brasov",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 7903010000,
+   "population": 553256
+  },
+  {
+   "code": "DE074M",
+   "name": "Görlitz",
+   "country": "DE",
+   "isCapital": false,
+   "gdpEur": 7807000000,
+   "population": 250558
+  },
+  {
+   "code": "HU002M",
+   "name": "Miskolc",
+   "country": "HU",
+   "isCapital": false,
+   "gdpEur": 7436600000,
+   "population": 632722
+  },
+  {
+   "code": "PL007M",
+   "name": "Szczecin",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 7172560000,
+   "population": 392527
+  },
+  {
+   "code": "PL014M",
+   "name": "Olsztyn",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 7161730000,
+   "population": 573199
+  },
+  {
+   "code": "HU009M",
+   "name": "Székesfehérvár",
+   "country": "HU",
+   "isCapital": false,
+   "gdpEur": 7010950000,
+   "population": 418701
+  },
+  {
+   "code": "PL024M",
+   "name": "Czestochowa",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 6705600000,
+   "population": 487392
+  },
+  {
+   "code": "SI002M",
+   "name": "Maribor",
+   "country": "SI",
+   "isCapital": false,
+   "gdpEur": 6666750000,
+   "population": 328469
+  },
+  {
+   "code": "PL011M",
+   "name": "Bialystok",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 6451850000,
+   "population": 488942
+  },
+  {
+   "code": "PL025M",
+   "name": "Radom",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 6330020000,
+   "population": 574281
+  },
+  {
+   "code": "RO004M",
+   "name": "Craiova",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 5973490000,
+   "population": 615962
+  },
+  {
+   "code": "HU005M",
+   "name": "Debrecen",
+   "country": "HU",
+   "isCapital": false,
+   "gdpEur": 5936440000,
+   "population": 526164
+  },
+  {
+   "code": "BG002M",
+   "name": "Plovdiv",
+   "country": "BG",
+   "isCapital": false,
+   "gdpEur": 5297930000,
+   "population": 666398
+  },
+  {
+   "code": "HR005M",
+   "name": "Split",
+   "country": "HR",
+   "isCapital": false,
+   "gdpEur": 4941920000,
+   "population": 446366
+  },
+  {
+   "code": "RO503M",
+   "name": "Galati",
+   "country": "RO",
+   "isCapital": false,
+   "gdpEur": 4339770000,
+   "population": 495149
+  },
+  {
+   "code": "PL514M",
+   "name": "Tarnów",
+   "country": "PL",
+   "isCapital": false,
+   "gdpEur": 4310130000,
+   "population": 429276
+  },
+  {
+   "code": "BG003M",
+   "name": "Varna",
+   "country": "BG",
+   "isCapital": false,
+   "gdpEur": 4308960000,
+   "population": 470124
+  },
+  {
+   "code": "HU004M",
+   "name": "Pécs",
+   "country": "HU",
+   "isCapital": false,
+   "gdpEur": 3934290000,
+   "population": 356819
+  },
+  {
+   "code": "BG004M",
+   "name": "Burgas",
+   "country": "BG",
+   "isCapital": false,
+   "gdpEur": 3309200000,
+   "population": 409750
+  }
+ ]
+}

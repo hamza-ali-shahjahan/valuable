@@ -12,7 +12,8 @@
     "dev": "next dev -p 4321",
     "build": "next build",
     "start": "next start -p 4321",
-    "ingest": "bun run ingest/worldbank.ts"
+    "ingest": "bun run ingest/worldbank.ts",
+    "ingest:metros": "bun run ingest/eurostat.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

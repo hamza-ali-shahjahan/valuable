@@ -10,6 +10,7 @@
 
 import { ukValuation } from "../engine/valuations.ts";
 import { valuableCountries, countryWealth, countryWealthPerCapita } from "../engine/countries.ts";
+import { allMetros, metroValue } from "../engine/metros.ts";
 import {
   verify, leaves, sources, assumptions, allWarnings, depth, challengeUrl,
   formatValue, ENGINE_VERSION, type Trace, type Traced,
@@ -116,6 +117,22 @@ for (const c of valuableCountries()) {
 console.log(`  ${cOk === checked - items.length ? GREEN + "✓" + RESET : RED + "✗" + RESET} ` +
   `${cOk} country calculations verified across ${valuableCountries().length} countries`);
 if (cBad.length) console.log(`  ${RED}failed: ${[...new Set(cBad)].join(", ")}${RESET}`);
+console.log();
+
+// --- European metros, summarised -----------------------------------------------
+console.log(`${BOLD}Europe's cities${RESET}  ${DIM}Eurostat, capital share of city output${RESET}\n`);
+
+let mOk = 0; const mBad: string[] = [];
+for (const m of allMetros()) {
+  const v = metroValue(m);
+  if (!v) continue;
+  checked++;
+  if (verify(v.trace, v.value).ok) mOk++;
+  else { mBad.push(m.code); failures++; }
+}
+console.log(`  ${mBad.length === 0 ? GREEN + "✓" + RESET : RED + "✗" + RESET} ` +
+  `${mOk} city calculations verified across ${allMetros().length} metropolitan regions`);
+if (mBad.length) console.log(`  ${RED}failed: ${mBad.join(", ")}${RESET}`);
 console.log();
 
 // Country calculations all publish; only the UK per-capita figure is held back.
