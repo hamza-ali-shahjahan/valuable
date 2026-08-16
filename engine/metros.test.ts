@@ -146,3 +146,126 @@ describe("The coverage gap is stated, not hidden", () => {
     expect(allWarnings(metroValue(findMetro("FR001MC")!)!.trace).join(" ")).toContain("2021");
   });
 });
+
+// ===========================================================================
+// THE FOUNDER TOOL
+//
+// The "what would move it" half of the promise. Its job is to be honest with someone
+// who badly wants good news — so the guarantees are tested, not intended.
+// ===========================================================================
+
+import {
+  founderValuation, projectExitRevenue, rankLevers, GROWTH_ENDURANCE,
+  FAILURE_BY_STAGE, STAGE_THRESHOLDS, topDownTam, TopDownTamError,
+  type FounderInputs, type Stage,
+} from "./startup.ts";
+import { rangeWidth } from "./core.ts";
+
+const FOUNDER: FounderInputs = {
+  stage: "seed", arr: 1_200_000, growthRate: 1.8, grossMargin: 0.72,
+  ndr: 0.96, grr: 0.88, logoRetention: 0.83, netBurn: 2_400_000,
+  netNewArr: 800_000, cac: 18_000, arpa: 24_000, fcfMargin: -1.2,
+  salesAndMarketing: 900_000,
+};
+
+describe("The founder tool never gives a single number", () => {
+  test("it returns a range, and a wide one", () => {
+    const v = founderValuation({ inputs: FOUNDER });
+    expect(v.range.low).toBeLessThan(v.range.central);
+    expect(v.range.central).toBeLessThan(v.range.high);
+    // Narrow bands here would be false precision — the honest band is wide.
+    expect(rangeWidth(v.range)).toBeGreaterThan(0.5);
+  });
+
+  test("it works at every stage", () => {
+    for (const stage of Object.keys(STAGE_THRESHOLDS) as Stage[]) {
+      const v = founderValuation({ inputs: { ...FOUNDER, stage } });
+      expect(Number.isFinite(v.range.central)).toBe(true);
+      expect(v.range.low).toBeGreaterThan(0);
+    }
+  });
+
+  test("it refuses a top-down market size", () => {
+    expect(() => topDownTam()).toThrow(TopDownTamError);
+  });
+});
+
+describe("It assumes growth slows, because growth always slows", () => {
+  test("projected revenue is far below naive compounding", () => {
+    const years = 8;
+    const decayed = projectExitRevenue({ arr: 1e6, growthRate: 1.8, years });
+    const naive = 1e6 * Math.pow(1 + 1.8, years);
+    expect(decayed).toBeLessThan(naive / 20);
+  });
+
+  test("endurance is set below 1 — assuming otherwise is the classic fantasy", () => {
+    expect(GROWTH_ENDURANCE).toBeGreaterThan(0.4);
+    expect(GROWTH_ENDURANCE).toBeLessThan(0.9);
+  });
+
+  test("faster growth still means a bigger exit, just not a silly one", () => {
+    const slow = projectExitRevenue({ arr: 1e6, growthRate: 0.5, years: 8 });
+    const fast = projectExitRevenue({ arr: 1e6, growthRate: 2.5, years: 8 });
+    expect(fast).toBeGreaterThan(slow);
+  });
+});
+
+describe("Failure odds are shown, not buried in the discount rate", () => {
+  test("every stage carries a real failure probability", () => {
+    for (const stage of Object.keys(FAILURE_BY_STAGE) as Stage[]) {
+      expect(FAILURE_BY_STAGE[stage]).toBeGreaterThan(0.2);
+      expect(FAILURE_BY_STAGE[stage]).toBeLessThan(0.9);
+    }
+  });
+
+  test("earlier stages are riskier than later ones", () => {
+    expect(FAILURE_BY_STAGE.pre_seed).toBeGreaterThan(FAILURE_BY_STAGE.series_b);
+  });
+
+  test("the odds are surfaced as a named assumption a founder can see", () => {
+    const v = founderValuation({ inputs: FOUNDER });
+    const shown = v.assumptions.find((a) => /doesn't work|odds/i.test(a.label));
+    expect(shown).toBeDefined();
+    expect(shown!.value).toContain("%");
+  });
+
+  test("all six assumptions explain why they matter", () => {
+    const v = founderValuation({ inputs: FOUNDER });
+    expect(v.assumptions.length).toBe(6);
+    for (const a of v.assumptions) expect(a.why.length).toBeGreaterThan(40);
+  });
+});
+
+describe("The levers are the product, and they rank honestly", () => {
+  test("what's broken comes before what's fine", () => {
+    const r = rankLevers(FOUNDER);
+    const firstPassing = r.levers.findIndex((l) => l.passing);
+    const lastFailing = r.levers.map((l) => l.passing).lastIndexOf(false);
+    if (firstPassing !== -1 && lastFailing !== -1) {
+      expect(lastFailing).toBeLessThan(firstPassing);
+    }
+  });
+
+  test("every lever tells you what to actually do", () => {
+    for (const l of rankLevers(FOUNDER).levers) {
+      expect(l.action.length).toBeGreaterThan(30);
+    }
+  });
+
+  test("strong efficiency at low revenue is recognised, not punished", () => {
+    const lean = rankLevers({
+      ...FOUNDER, stage: "series_a", arr: 2.4e6, ndr: 1.18,
+      netBurn: 1.2e6, netNewArr: 1.4e6, grossMargin: 0.8, logoRetention: 0.93,
+    });
+    expect(lean.pattern).toContain("lower ARR");
+  });
+
+  test("revenue without efficiency is called out as the classic rejection", () => {
+    const bloated = rankLevers({
+      ...FOUNDER, stage: "series_a", arr: 6e6, growthRate: 0.3,
+      ndr: 0.9, netBurn: 9e6, netNewArr: 1.2e6, grossMargin: 0.5, logoRetention: 0.72,
+    });
+    expect(bloated.pattern).toContain("pattern mismatch");
+    expect(bloated.readiness).toBe("not_ready");
+  });
+});

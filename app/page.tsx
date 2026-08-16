@@ -74,15 +74,15 @@ export default function Home() {
           <span className="entity-go entity-go-muted">Not published yet</span>
         </div>
 
-        <div className="entity entity-soon">
-          <div className="entity-count">—</div>
-          <div className="entity-name">Startups</div>
+        <a className="entity" href="/simulate">
+          <div className="entity-count">You</div>
+          <div className="entity-name">Your startup</div>
           <p className="entity-note">
-            A valuation range, a survival-adjusted view, and a ranked list of which lever
-            at your stage actually moves it. The engine is built; the pages aren’t.
+            Eight numbers you already know, and you get a valuation range plus a ranked
+            list of what to fix before an investor finds it. Nothing is stored.
           </p>
-          <span className="entity-go entity-go-muted">Not published yet</span>
-        </div>
+          <span className="entity-go">Value your startup →</span>
+        </a>
       </div>
 
       <h2>What the numbers say</h2>

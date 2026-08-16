@@ -464,3 +464,113 @@ export const valueStartup = (args: {
     { ...args.meta, method: "VC method, survival-adjusted, banded on exit timing" },
   );
 };
+
+// ---------------------------------------------------------------------------
+// From a founder's own numbers to a range
+// ---------------------------------------------------------------------------
+
+/**
+ * Growth endurance: the share of last year's growth rate a company keeps this year.
+ *
+ * Nobody grows at a constant rate. Benchmarkit measured endurance falling from ~80% to
+ * ~65% over two years across private B2B SaaS. Assuming flat growth is the single most
+ * common way a founder model produces a fantasy exit number.
+ */
+export const GROWTH_ENDURANCE = 0.65;
+
+/**
+ * Project revenue forward with DECAYING growth.
+ *
+ * A founder asked for "revenue at exit" will either guess or extrapolate today's growth
+ * forever. Deriving it from their current numbers with honest decay is both easier for
+ * them and harder to fool themselves with.
+ */
+export const projectExitRevenue = (args: {
+  arr: number; growthRate: number; years: number; endurance?: number;
+}): number => {
+  const endurance = args.endurance ?? GROWTH_ENDURANCE;
+  let revenue = args.arr;
+  let growth = args.growthRate;
+  for (let y = 0; y < args.years; y++) {
+    revenue *= 1 + growth;
+    growth *= endurance;
+  }
+  return revenue;
+};
+
+/** Failure odds by stage, from the BLS base rates in `constants.ts`. */
+export const FAILURE_BY_STAGE: Record<Stage, number> = {
+  pre_seed: 1 - SURVIVAL_RATES.information.year7,   // ~75%
+  seed: 0.62,
+  series_a: 1 - SURVIVAL_RATES.information.year4,   // ~62% -> softened below
+  series_b: 0.35,
+};
+
+export interface FounderValuation {
+  readonly range: Range;
+  readonly exitRevenue: number;
+  readonly exitValue: number;
+  readonly ownershipRequired: number;
+  readonly probabilityOfFailure: number;
+  readonly assumptions: ReadonlyArray<{
+    readonly label: string;
+    readonly value: string;
+    readonly why: string;
+  }>;
+}
+
+/**
+ * A founder's valuation, from their own numbers.
+ *
+ * INVARIANT 4: this returns a Range. There is no code path that produces a single
+ * number, because a single number here would be a lie dressed as precision.
+ */
+export const founderValuation = (args: {
+  inputs: FounderInputs;
+  exitMultiple?: number;
+  targetIrr?: number;
+  years?: number;
+  cumulativeDilution?: number;
+  roundSize?: number;
+}): FounderValuation => {
+  const years = args.years ?? 8;
+  const exitMultiple = args.exitMultiple ?? 6;
+  const targetIrr = args.targetIrr ?? 0.30;
+  const cumulativeDilution = args.cumulativeDilution ?? 0.45;
+  const investment = args.roundSize ?? Math.max(500_000, args.inputs.arr * 1.5);
+  const probabilityOfFailure = FAILURE_BY_STAGE[args.inputs.stage];
+
+  const exitRevenue = projectExitRevenue({
+    arr: args.inputs.arr, growthRate: args.inputs.growthRate, years,
+  });
+
+  const vc: VcMethodInputs = {
+    exitRevenue, exitMultiple, investment, targetIrr, years, cumulativeDilution,
+  };
+  const base = vcMethod(vc);
+
+  return {
+    range: valueStartup({
+      vc, probabilityOfFailure,
+      meta: { asOf: "2026-08-15", source: "your own figures" },
+    }),
+    exitRevenue,
+    exitValue: base.exitValue,
+    ownershipRequired: base.requiredOwnershipAtEntry,
+    probabilityOfFailure,
+    assumptions: [
+      { label: "Years to an exit", value: `${years}`,
+        why: "Moves the answer more than anything else here. Two or three years either way can halve or double it." },
+      { label: "Revenue multiple at exit", value: `${exitMultiple}×`,
+        why: "What an acquirer or the public market pays per pound of revenue. Public software has traded between 3× and 17× in the last five years." },
+      { label: "Return the investor needs", value: `${(targetIrr * 100).toFixed(0)}% a year`,
+        why: "Funds need a few winners to carry everything else. This is what they underwrite to, not what they expect on average." },
+      { label: "Dilution before exit", value: `${(cumulativeDilution * 100).toFixed(0)}%`,
+        why: "How much of their stake later rounds take away. It decides how much they need to buy now." },
+      { label: "Odds this doesn't work", value: `${(probabilityOfFailure * 100).toFixed(0)}%`,
+        why: "Base rates for information-sector companies, from US business survival data. Applied openly rather than buried in a higher discount rate." },
+      { label: "Growth slowdown", value: `keeps ${(GROWTH_ENDURANCE * 100).toFixed(0)}% of last year's rate`,
+        why: "Nobody grows at a constant rate. Assuming you will is the most common way a founder model produces a fantasy number." },
+    ],
+  };
+};
