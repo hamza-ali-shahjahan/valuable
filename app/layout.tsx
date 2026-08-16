@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Valuable — verifiable valuations",
+  title: "Valuable — what it's worth, and what moves it",
   description:
-    "What a country, a city, a company or your startup is worth — with the complete " +
-    "working, so anyone can recompute it and prove we didn't cheat.",
+    "Find what a country, city, company or startup is actually worth — and what would " +
+    "move it. Every figure traceable to the office that measured it.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -16,11 +16,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <header className="masthead">
           <div className="masthead-inner">
             <a className="wordmark" href="/">Valuable</a>
-            <span className="small muted mono">show your working</span>
+            <span className="small muted">what it’s worth, and what moves it</span>
             <nav>
               <a href="/countries">Countries</a>
               <a href="/metros">Cities</a>
-              <a href="/country/uk">United Kingdom</a>
+              <a href="/sources">Sources</a>
               <a href="/method">Method</a>
             </nav>
           </div>

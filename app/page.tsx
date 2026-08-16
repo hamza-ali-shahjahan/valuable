@@ -1,99 +1,143 @@
-import { ukValuation, allEntries } from "../lib/registry.ts";
-import { formatValue } from "../engine/trace.ts";
+/**
+ * The front page.
+ *
+ * POSITIONING, which the earlier version got wrong. This is not a site about showing
+ * working. It is a method and a platform for finding what a country, city, company or
+ * startup is genuinely worth — and then understanding what moves that number.
+ *
+ * The audit trail is how we earn the right to be believed. It is the credibility
+ * mechanism, not the product. It should be visible and never the headline.
+ */
+
+import PlaceSearch from "../components/PlaceSearch.tsx";
+import { findings, searchIndex } from "../engine/findings.ts";
 import { valuableCountries } from "../engine/countries.ts";
+import { allMetros } from "../engine/metros.ts";
 
 export default function Home() {
-  const v = ukValuation();
-  const netWorth = v.claims[0]!;
-  const entries = allEntries();
-  const withheld = entries.filter((e) => !e.publishable).length;
+  const entries = searchIndex();
+  const items = findings();
+  const countries = valuableCountries().length;
+  const cities = allMetros().length;
 
   return (
     <main className="wrap">
-      <h1 style={{ maxWidth: "18ch" }}>Valuations you can check.</h1>
-      <p className="lede">
-        What a country, a city, a company or your startup is worth — published with the
-        complete working, so anyone can recompute it and prove we didn’t cheat.
-      </p>
-      <p className="lede" style={{ fontSize: 15 }}>
-        Most valuation tools ask you to trust a number. This one shows you every input,
-        every step, and every judgement call behind it — then hands you a fingerprint so
-        you can verify nothing drifted, and a link to argue with any single step.
-      </p>
-
-      <h2>Start here</h2>
-      <div className="claim">
-        <div className="claim-q">Every country we can value, ranked and checkable</div>
-        <span className="claim-value">{valuableCountries().length}</span>
-        <p style={{ fontSize: 16, margin: "0 0 10px", maxWidth: "60ch" }}>
-          Measured the same way everywhere, so they can honestly be compared.
+      <section className="hero">
+        <h1>
+          What is it actually worth —<br />and what would move it?
+        </h1>
+        <p className="lede">
+          A method for valuing countries, cities, companies and startups on the same
+          principles, and for working out which decisions change the answer.
         </p>
-        <div className="claim-meta">
-          <a href="/countries">See all countries →</a>
+
+        <PlaceSearch
+          entries={entries}
+          suggestions={[
+            { name: "Singapore", href: "/country/sgp" },
+            { name: "Paris", href: "/metro/fr001mc" },
+            { name: "Nigeria", href: "/country/nga" },
+            { name: "United Kingdom", href: "/country/uk" },
+          ]}
+        />
+      </section>
+
+      <h2>What we can value</h2>
+      <div className="grid-2">
+        <a className="entity" href="/countries">
+          <div className="entity-count">{countries}</div>
+          <div className="entity-name">Countries</div>
+          <p className="entity-note">
+            What a nation owns, what its people will earn, and what its land holds — with
+            the events and decisions that moved the number.
+          </p>
+          <span className="entity-go">Explore countries →</span>
+        </a>
+
+        <a className="entity" href="/metros">
+          <div className="entity-count">{cities}</div>
+          <div className="entity-name">Cities</div>
+          <p className="entity-note">
+            What a city’s buildings, land and infrastructure are worth — the part that
+            can’t get up and leave when people do.
+          </p>
+          <span className="entity-go">Explore cities →</span>
+        </a>
+
+        <div className="entity entity-soon">
+          <div className="entity-count">—</div>
+          <div className="entity-name">Companies</div>
+          <p className="entity-note">
+            Cash-flow valuation with the consistency checks most models skip, and the
+            breakeven revenue a price implies. The engine is built; the pages aren’t.
+          </p>
+          <span className="entity-go entity-go-muted">Not published yet</span>
         </div>
-      </div>
-      <div className="claim">
-        <div className="claim-q">{netWorth.question}</div>
-        <span className="claim-value">
-          {formatValue(netWorth.traced.value, netWorth.traced.trace.unit)}
-        </span>
-        <div className="claim-meta">
-          <a href="/country/uk">United Kingdom →</a>
-          <a href={`/trace/${netWorth.traced.trace.hash}`}>see the working →</a>
-          <span className="badge badge-ok">✓ verified</span>
+
+        <div className="entity entity-soon">
+          <div className="entity-count">—</div>
+          <div className="entity-name">Startups</div>
+          <p className="entity-note">
+            A valuation range, a survival-adjusted view, and a ranked list of which lever
+            at your stage actually moves it. The engine is built; the pages aren’t.
+          </p>
+          <span className="entity-go entity-go-muted">Not published yet</span>
         </div>
       </div>
 
-      <h2>How it works</h2>
+      <h2>What the numbers say</h2>
+      <p className="small muted" style={{ maxWidth: "68ch", marginTop: -6, marginBottom: 16 }}>
+        Not headlines — findings. Each one is computed from our own figures, so it can’t
+        drift out of line with the page it points to.
+      </p>
+
+      <div className="findings">
+        {items.map((f) => (
+          <a className="finding" href={f.href} key={f.href + f.headline}>
+            <div className="finding-headline">{f.headline}</div>
+            <p className="finding-body">{f.body}</p>
+            <span className="finding-action">{f.action} →</span>
+          </a>
+        ))}
+      </div>
+
+      <h2>Why you can believe any of it</h2>
       <div className="grid-2">
         <div className="stat">
-          <div className="stat-label">Three kinds of input</div>
+          <div className="stat-label">Every figure is traceable</div>
           <p className="stat-note" style={{ marginTop: 8 }}>
-            <span style={{ color: "var(--observed)" }}>●</span> figures read from a
-            primary source, with their vintage.{" "}
-            <span style={{ color: "var(--derived)" }}>▸</span> other computations, which
-            you can drill into.{" "}
-            <span style={{ color: "var(--assumption)" }}>◆</span> judgements we made — the
-            contestable part, always marked as such.
+            Each number shows every figure behind it, where it came from and when it was
+            measured. Follow it down to the source and back.
           </p>
         </div>
         <div className="stat">
-          <div className="stat-label">Verifiable, not just transparent</div>
+          <div className="stat-label">The judgements are marked</div>
           <p className="stat-note" style={{ marginTop: 8 }}>
-            Each working carries a fingerprint computed from its inputs, its formula and
-            the engine version. Recompute it; if it matches, the number and its working
-            have not drifted apart.
+            Where we chose a number rather than measured one, it says so — and you can
+            move it and watch what happens.
           </p>
         </div>
         <div className="stat">
-          <div className="stat-label">Nothing published on faith</div>
+          <div className="stat-label">Anyone can check it</div>
           <p className="stat-note" style={{ marginTop: 8 }}>
-            {withheld > 0
-              ? `${withheld} figure${withheld === 1 ? " is" : "s are"} currently withheld because an input has not been confirmed against a primary source. The maths is fine; the provenance isn’t.`
-              : "Every figure’s inputs are confirmed against a primary source."}
+            Every calculation carries a fingerprint. Recompute it; if it matches, nothing
+            has drifted. One command does all of them.
           </p>
         </div>
         <div className="stat">
-          <div className="stat-label">Peer reviewed, genuinely</div>
+          <div className="stat-label">We say what we don’t know</div>
           <p className="stat-note" style={{ marginTop: 8 }}>
-            Methods, data and sources are public. A challenge is an issue against a
-            specific step; an improvement is a pull request. We seeded it with our own
-            unresolved disagreements.
+            Figures we haven’t confirmed are held back rather than published. The gaps are
+            listed as plainly as the numbers.{" "}
+            <a href="/sources">See every source →</a>
           </p>
         </div>
       </div>
 
-      <h2>What isn’t built yet</h2>
-      <p className="small" style={{ maxWidth: "70ch", color: "var(--ink-2)" }}>
-        Only the United Kingdom has a researched history of what moved its number — every
-        other country’s timeline is empty. Cities, companies and the founder tool run on
-        the same engine but aren’t published. And the newest wealth figures any statistics
-        office publishes are from 2020, so nothing here reflects the last five years.
-      </p>
-
       <footer className="foot">
-        Built in the open. Every figure carries its source and vintage; where our maths
-        disagrees with a published figure we flag it rather than fitting to it.
+        Built in the open. Figures from the World Bank, Eurostat, the UK’s Office for
+        National Statistics and the Office for Budget Responsibility — all listed, with
+        their licences, on the <a href="/sources">sources page</a>.
       </footer>
     </main>
   );

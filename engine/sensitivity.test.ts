@@ -209,3 +209,107 @@ describe("The striking examples come from the data, not from a hardcoded list", 
     expect(new Set(ex.map((e) => e.composition.iso3)).size).toBe(ex.length);
   });
 });
+
+// ===========================================================================
+// THE FRONT PAGE
+//
+// Findings are computed, not written, so they cannot drift out of line with the pages
+// they point at. These assert that they stay true and stay linked.
+// ===========================================================================
+
+import { findings, searchIndex } from "./findings.ts";
+import { sourcesInUse, REFUSED } from "./sources.ts";
+
+describe("Findings are computed and stay true", () => {
+  const f = findings();
+
+  test("there are enough to fill the page", () => {
+    expect(f.length).toBeGreaterThanOrEqual(4);
+  });
+
+  test("each carries a headline, a body and something to do next", () => {
+    for (const x of f) {
+      expect(x.headline.length).toBeGreaterThan(25);
+      expect(x.body.length).toBeGreaterThan(80);
+      expect(x.action.length).toBeGreaterThan(5);
+      expect(x.href.startsWith("/")).toBe(true);
+    }
+  });
+
+  test("every finding links somewhere that exists", () => {
+    const valid = /^\/(countries|metros|country\/[a-z]+|metro\/[a-z0-9]+|trace\/[0-9a-f]{64})$/;
+    for (const x of f) {
+      expect(valid.test(x.href), `bad link: ${x.href}`).toBe(true);
+    }
+  });
+
+  test("headlines carry real figures, not vague claims", () => {
+    const withNumbers = f.filter((x) => /[\d£$€]/.test(x.headline));
+    expect(withNumbers.length).toBeGreaterThanOrEqual(3);
+  });
+
+  test("no finding claims to be news — our data has fixed vintages", () => {
+    // "worth today" is present-value language, not a freshness claim, so the check
+    // targets phrases that actually assert recency.
+    const newsy = /\b(breaking|just in|this (week|month)|latest figures|newly released|as of today)\b/i;
+    for (const x of f) {
+      expect(newsy.test(x.headline + " " + x.body), `sounds like news: ${x.headline}`).toBe(false);
+    }
+  });
+});
+
+describe("Search covers everything we can value", () => {
+  const idx = searchIndex();
+
+  test("every country and every city is findable", () => {
+    expect(idx.length).toBeGreaterThan(390);
+    expect(idx.some((e) => e.kind === "country")).toBe(true);
+    expect(idx.some((e) => e.kind === "city")).toBe(true);
+  });
+
+  test("the UK resolves to its own richer page, not the generic one", () => {
+    expect(idx.find((e) => e.name === "United Kingdom")!.href).toBe("/country/uk");
+  });
+
+  test("every entry has somewhere to go and something to show", () => {
+    for (const e of idx) {
+      expect(e.href.startsWith("/")).toBe(true);
+      expect(e.detail.length).toBeGreaterThan(3);
+    }
+  });
+});
+
+describe("The sources page is generated from what is actually used", () => {
+  const s = sourcesInUse();
+
+  test("it finds the sources we depend on", () => {
+    const names = s.map((x) => x.name);
+    expect(names).toContain("World Bank");
+    expect(names).toContain("Eurostat");
+    expect(names).toContain("ONS");
+  });
+
+  test("each records how many published figures rely on it", () => {
+    for (const x of s) expect(x.figures).toBeGreaterThan(0);
+    // The World Bank carries the most by a wide margin — 149 countries.
+    expect(s[0]!.name).toBe("World Bank");
+    expect(s[0]!.figures).toBeGreaterThan(200);
+  });
+
+  test("each states its licence and whether we may pass it on", () => {
+    for (const x of s) {
+      expect(x.licence.length).toBeGreaterThan(20);
+      expect(typeof x.redistributable).toBe("boolean");
+    }
+  });
+
+  test("unconfirmed figures are counted, not hidden", () => {
+    expect(s.some((x) => x.unverified > 0)).toBe(true);
+  });
+
+  test("what we refuse is listed with a reason each", () => {
+    expect(REFUSED.length).toBeGreaterThanOrEqual(8);
+    for (const r of REFUSED) expect(r.why.length).toBeGreaterThan(40);
+    expect(REFUSED.map((r) => r.name).join(" ")).toMatch(/BIS/);
+  });
+});
