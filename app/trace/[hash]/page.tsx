@@ -8,6 +8,8 @@
 
 import { notFound } from "next/navigation";
 import TraceTree from "../../../components/TraceTree.tsx";
+import SensitivityDial from "../../../components/SensitivityDial.tsx";
+import { modelFromTrace } from "../../../engine/sensitivity.ts";
 import { lookup, allHashes } from "../../../lib/registry.ts";
 import {
   verify, formatValue, challengeUrl, leaves, sources, assumptions, allWarnings, depth,
@@ -30,6 +32,8 @@ export default async function TracePage({ params }: { params: Promise<{ hash: st
   const assumptionList = assumptions(t);
   const srcs = sources(t);
   const measured = leaves(t).filter((n) => n.kind === "observed").length;
+  // Only appears where there is genuinely a discount-rate judgement to drag.
+  const sensitivity = modelFromTrace(t, value);
 
   return (
     <main className="wrap">
@@ -110,6 +114,15 @@ export default async function TracePage({ params }: { params: Promise<{ hash: st
             maths needs a number and reality doesn’t supply one. They’re the most likely
             place for this answer to be wrong.
           </p>
+
+          {sensitivity && (
+            <SensitivityDial
+              model={sensitivity.model}
+              otherComponents={sensitivity.otherComponents}
+              unit={t.unit}
+              publishedTotal={value}
+            />
+          )}
           <table className="plain">
             <thead>
               <tr><th>The choice</th><th>What we used</th><th></th></tr>
