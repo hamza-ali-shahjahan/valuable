@@ -7,8 +7,10 @@
 
 import {
   valuableCountries, countryWealth, countryWealthPerCapita, CWON_YEAR,
+  allCompositions, compositionExtremes,
 } from "../../engine/countries.ts";
 import { formatValue } from "../../engine/trace.ts";
+import CompositionBar from "../../components/CompositionBar.tsx";
 
 export default function CountriesPage() {
   const rows = valuableCountries().map((c) => {
@@ -41,6 +43,17 @@ export default function CountriesPage() {
         statistics offices make different reasonable choices, and we’d rather show you
         both than quietly pick one. <a href="/country/uk">See the UK →</a>
       </div>
+
+      <h2>Same size, built completely differently</h2>
+      <p style={{ maxWidth: "68ch", marginTop: -6, marginBottom: 4 }}>
+        The total tells you how much. It tells you nothing about what kind of country it
+        is. Switch between these and watch the bar re-shape — one is almost entirely
+        people, another is mostly what is buried under it.
+      </p>
+      <CompositionBar
+        compositions={allCompositions()}
+        extremes={compositionExtremes()}
+      />
 
       <h2>Ranked by total wealth</h2>
       <table className="plain">

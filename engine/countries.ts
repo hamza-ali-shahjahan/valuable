@@ -272,3 +272,90 @@ export const countrySummary = (c: CountryMeta) => {
     coverage: coverage(c),
   };
 };
+
+// ---------------------------------------------------------------------------
+// What a country is made of
+// ---------------------------------------------------------------------------
+
+export interface Composition {
+  readonly iso3: string;
+  readonly name: string;
+  /** Shares of DOMESTIC wealth, summing to 1. */
+  readonly produced: number;
+  readonly human: number;
+  readonly natural: number;
+  readonly domestic: number;
+  readonly total: number;
+  /**
+   * Net foreign assets, kept OUT of the shares deliberately — it can be negative, and a
+   * negative slice in a stacked bar is a lie. Reported alongside instead.
+   */
+  readonly netForeign: number;
+}
+
+export const countryComposition = (c: CountryMeta): Composition | null => {
+  const total = val("total", c.iso3);
+  const domestic = val("domestic", c.iso3);
+  const produced = val("produced", c.iso3);
+  const human = val("human", c.iso3);
+  const naturalRenewable = val("naturalRenewable", c.iso3);
+  if (total === undefined || domestic === undefined || produced === undefined
+      || human === undefined || naturalRenewable === undefined) return null;
+
+  const natural = Math.max(0, domestic - (produced + human + naturalRenewable)) + naturalRenewable;
+  // Normalise against the components we actually have, so the shares always sum to 1
+  // even where the published domestic total rounds differently.
+  const sum = produced + human + natural;
+  if (sum <= 0) return null;
+
+  return {
+    iso3: c.iso3, name: c.name,
+    produced: produced / sum,
+    human: human / sum,
+    natural: natural / sum,
+    domestic, total,
+    netForeign: total - domestic,
+  };
+};
+
+export const allCompositions = (): readonly Composition[] =>
+  valuableCountries()
+    .map(countryComposition)
+    .filter((x): x is Composition => x !== null);
+
+/**
+ * The most striking examples, picked FROM THE DATA rather than hardcoded — so they stay
+ * true if the underlying figures are ever revised.
+ *
+ * Restricted to countries with a meaningful total, because the extremes are otherwise
+ * dominated by tiny economies where one mine swings the whole share.
+ */
+export const compositionExtremes = (): readonly {
+  composition: Composition; why: string;
+}[] => {
+  const big = allCompositions()
+    .filter((x) => x.total > 2e11)
+    .sort((a, b) => b.total - a.total);
+  if (big.length === 0) return [];
+
+  const pick = (
+    key: "produced" | "human" | "natural", why: (c: Composition) => string,
+  ) => {
+    const top = [...big].sort((a, b) => b[key] - a[key])[0]!;
+    return { composition: top, why: why(top) };
+  };
+
+  const out = [
+    pick("natural", (c) => `${(c.natural * 100).toFixed(0)}% of ${c.name}'s wealth is land and resources — its fortunes move with commodity prices.`),
+    pick("human", (c) => `${(c.human * 100).toFixed(0)}% of ${c.name}'s wealth is its people. Almost nothing else matters to the total.`),
+    pick("produced", (c) => `${(c.produced * 100).toFixed(0)}% of ${c.name}'s wealth is what it has built — an unusually capital-heavy economy.`),
+  ];
+
+  // De-duplicate: one country can top two categories.
+  const seen = new Set<string>();
+  return out.filter((x) => {
+    if (seen.has(x.composition.iso3)) return false;
+    seen.add(x.composition.iso3);
+    return true;
+  });
+};

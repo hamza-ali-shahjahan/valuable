@@ -640,3 +640,118 @@ footer.foot {
   .dial-total { font-size: 26px; }
   .dial-mark-label { font-size: 9.5px; }
 }
+
+/* ---------------------------------------------------------- composition bar
+ *
+ * The second and last piece of motion. Widths transition ONLY when the country
+ * changes — the re-shaping is the comparison. Nothing animates on first paint.
+ */
+
+.comp {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  margin: 18px 0;
+}
+.comp-interactive { border-color: var(--border-strong); }
+
+.comp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.comp-name { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.comp-total { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+
+.comp-picker { display: flex; flex-direction: column; gap: 4px; }
+.comp-picker-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.comp-picker select {
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  color: var(--ink);
+  min-width: 180px;
+  cursor: pointer;
+}
+.comp-picker select:focus-visible { outline: 2px solid var(--derived); outline-offset: 2px; }
+
+.comp-bar {
+  display: flex;
+  height: 46px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--border);
+}
+.comp-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  /* The one transition that matters: the re-shape between two countries. */
+  transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.comp-seg-pct {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--surface);
+  mix-blend-mode: normal;
+  white-space: nowrap;
+}
+@media (prefers-color-scheme: dark) {
+  .comp-seg-pct { color: #12120f; }
+}
+
+.comp-key { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.comp-key-item { display: flex; gap: 9px; align-items: baseline; font-size: 13.5px; }
+.comp-swatch {
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  flex: none;
+  transform: translateY(1px);
+}
+.comp-key-hint { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
+
+.comp-foot {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  margin: 14px 0 0;
+  max-width: 66ch;
+  line-height: 1.55;
+}
+
+.comp-presets { margin-top: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.comp-presets-label { font-size: 12px; color: var(--ink-3); }
+.comp-preset {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.comp-preset:hover { border-color: var(--ink-3); color: var(--ink); }
+.comp-preset-on { border-color: var(--derived); color: var(--derived); }
+
+@media (prefers-reduced-motion: reduce) {
+  .comp-seg { transition: none; }
+}
+
+@media (max-width: 620px) {
+  .comp-bar { height: 38px; }
+  .comp-picker select { min-width: 140px; }
+}

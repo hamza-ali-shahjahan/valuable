@@ -10,8 +10,9 @@ import { notFound } from "next/navigation";
 import TraceTree from "../../../components/TraceTree.tsx";
 import {
   valuableCountries, findCountry, countryWealth, countryWealthPerCapita,
-  coverage, CWON_YEAR,
+  coverage, countryComposition, CWON_YEAR,
 } from "../../../engine/countries.ts";
+import { StaticComposition } from "../../../components/CompositionBar.tsx";
 import { formatValue, allWarnings, assumptions, challengeUrl } from "../../../engine/trace.ts";
 
 export const dynamicParams = false;
@@ -32,6 +33,7 @@ export default async function CountryPage({ params }: { params: Promise<{ iso3: 
   if (!wealth) notFound();
   const perCapita = countryWealthPerCapita(c);
   const cov = coverage(c);
+  const composition = countryComposition(c);
   const warnings = allWarnings(wealth.trace);
   const judgements = assumptions(wealth.trace).length;
 
@@ -80,6 +82,13 @@ export default async function CountryPage({ params }: { params: Promise<{ iso3: 
             <a href={`/trace/${perCapita.trace.hash}`}>See how we got there →</a>
           </div>
         </div>
+      )}
+
+      {composition && (
+        <>
+          <h2>What {c.name} is made of</h2>
+          <StaticComposition composition={composition} />
+        </>
       )}
 
       <h2>What goes into it</h2>

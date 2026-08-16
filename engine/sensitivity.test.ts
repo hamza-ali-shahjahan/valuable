@@ -127,3 +127,85 @@ describe("The gap with the official sensitivity is disclosed, not tuned away", (
     expect(perPp).toBeGreaterThan(0.12);
   });
 });
+
+// ===========================================================================
+// COMPOSITION
+//
+// The bar is a picture of a number, so it has to be as honest as the number. Shares that
+// don't sum to 100%, or a negative slice, would be a lie told in a nice colour.
+// ===========================================================================
+
+import {
+  countryComposition, allCompositions, compositionExtremes, valuableCountries,
+} from "./countries.ts";
+
+describe("Composition shares are honest", () => {
+  const all = allCompositions();
+
+  test("we can break down essentially every country we value", () => {
+    expect(all.length).toBeGreaterThan(valuableCountries().length * 0.98);
+  });
+
+  test("EVERY country's shares sum to exactly 100%", () => {
+    for (const c of all) {
+      expect(c.produced + c.human + c.natural).toBeCloseTo(1, 9);
+    }
+  });
+
+  test("no share is ever negative — a negative slice would be a lie", () => {
+    for (const c of all) {
+      expect(c.produced).toBeGreaterThanOrEqual(0);
+      expect(c.human).toBeGreaterThanOrEqual(0);
+      expect(c.natural).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  test("net foreign assets are kept OUT of the shares, because they can be negative", () => {
+    const negative = all.filter((c) => c.netForeign < 0);
+    expect(negative.length).toBeGreaterThan(0);
+    // Its exclusion is why the three shares can still sum to 1.
+    for (const c of negative.slice(0, 20)) {
+      expect(c.produced + c.human + c.natural).toBeCloseTo(1, 9);
+    }
+  });
+
+  test("the breakdown reflects the country's real character", () => {
+    const nga = countryComposition(valuableCountries().find((c) => c.iso3 === "NGA")!)!;
+    const gbr = countryComposition(valuableCountries().find((c) => c.iso3 === "GBR")!)!;
+    // Nigeria is resource-heavy; the UK has almost none left.
+    expect(nga.natural).toBeGreaterThan(0.25);
+    expect(gbr.natural).toBeLessThan(0.05);
+    expect(gbr.human).toBeGreaterThan(0.5);
+  });
+});
+
+describe("The striking examples come from the data, not from a hardcoded list", () => {
+  const ex = compositionExtremes();
+
+  test("we find genuine extremes", () => {
+    expect(ex.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test("each is actually extreme on the dimension it claims", () => {
+    const all = allCompositions().filter((c) => c.total > 2e11);
+    for (const e of ex) {
+      const dominant = (["produced", "human", "natural"] as const)
+        .map((k) => ({ k, share: e.composition[k] }))
+        .sort((a, b) => b.share - a.share)[0]!;
+      const topForThat = Math.max(...all.map((c) => c[dominant.k]));
+      // It should be at or very near the top of its own category.
+      expect(e.composition[dominant.k]).toBeGreaterThan(topForThat * 0.85);
+    }
+  });
+
+  test("each explains itself in plain words with its own number", () => {
+    for (const e of ex) {
+      expect(e.why).toContain(e.composition.name);
+      expect(e.why).toMatch(/\d+%/);
+    }
+  });
+
+  test("no country appears twice", () => {
+    expect(new Set(ex.map((e) => e.composition.iso3)).size).toBe(ex.length);
+  });
+});
