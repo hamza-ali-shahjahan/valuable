@@ -9,6 +9,10 @@
 import { ukValuation } from "./valuations.ts";
 import { valuableCountries, countryWealth, countryWealthPerCapita } from "./countries.ts";
 import { allMetros, metroValue } from "./metros.ts";
+import {
+  rankedCompanies, investedCapital, returnOnCapital, valueCreated, companyValue,
+  displayName,
+} from "./companies.ts";
 import { leaves, type Trace } from "./trace.ts";
 
 export interface SourceUsage {
@@ -59,6 +63,15 @@ const LICENCES: Record<string, { licence: string; redistributable: boolean; feed
     redistributable: false,
     feeds: "The stock-market value of London-listed companies",
   },
+  "SEC EDGAR": {
+    licence:
+      "Public domain — works of the US federal government carry no copyright " +
+      "(17 U.S.C. §105). The only condition is their fair-access policy: identify " +
+      "yourself and stay under ten requests a second.",
+    redistributable: true,
+    feeds: "What every US public company earns, owns and owes, from its own annual filing",
+    url: "https://www.sec.gov/edgar/sec-api-documentation",
+  },
 };
 
 const family = (source: string): string => {
@@ -67,6 +80,10 @@ const family = (source: string): string => {
   if (/^ons |office for national/i.test(source)) return "ONS";
   if (/obr|budget responsibility/i.test(source)) return "OBR";
   if (/ftse/i.test(source)) return "FTSE";
+  if (/sec edgar/i.test(source)) return "SEC EDGAR";
+  // Damodaran deliberately has no entry here. His cost-of-capital figures reach us as
+  // ASSUMPTIONS, not observations, and this page lists what was measured. The reasoning
+  // and the attribution travel with the judgement itself, on every page that uses it.
   return source;
 };
 
@@ -99,6 +116,18 @@ const publishedTraces = (): { trace: Trace; label: string; href: string }[] => {
     if (mv) out.push({
       trace: mv.trace, label: m.name, href: `/metro/${m.code.toLowerCase()}`,
     });
+  }
+
+  for (const { company } of rankedCompanies()) {
+    const label = displayName(company.name);
+    const href = `/company/${company.cik}`;
+    const value = companyValue(company);
+    for (const t of [
+      valueCreated(company), returnOnCapital(company), investedCapital(company),
+      value?.floor, value?.ceiling,
+    ]) {
+      if (t) out.push({ trace: t.trace, label, href });
+    }
   }
   return out;
 };

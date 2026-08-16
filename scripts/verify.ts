@@ -12,6 +12,9 @@ import { ukValuation } from "../engine/valuations.ts";
 import { valuableCountries, countryWealth, countryWealthPerCapita } from "../engine/countries.ts";
 import { allMetros, metroValue } from "../engine/metros.ts";
 import {
+  rankedCompanies, investedCapital, returnOnCapital, valueCreated, companyValue,
+} from "../engine/companies.ts";
+import {
   verify, leaves, sources, assumptions, allWarnings, depth, challengeUrl,
   formatValue, ENGINE_VERSION, type Trace, type Traced,
 } from "../engine/trace.ts";
@@ -133,6 +136,28 @@ for (const m of allMetros()) {
 console.log(`  ${mBad.length === 0 ? GREEN + "✓" + RESET : RED + "✗" + RESET} ` +
   `${mOk} city calculations verified across ${allMetros().length} metropolitan regions`);
 if (mBad.length) console.log(`  ${RED}failed: ${mBad.join(", ")}${RESET}`);
+console.log();
+
+// --- US public companies, summarised -------------------------------------------
+console.log(`${BOLD}US public companies${RESET}  ${DIM}SEC filings, return on capital against its cost${RESET}\n`);
+
+let coOk = 0; const coBad: string[] = [];
+for (const { company } of rankedCompanies()) {
+  const value = companyValue(company);
+  const traces = [
+    valueCreated(company), returnOnCapital(company), investedCapital(company),
+    value?.floor, value?.ceiling,
+  ];
+  for (const t of traces) {
+    if (!t) continue;
+    checked++;
+    if (verify(t.trace, t.value).ok) coOk++;
+    else { coBad.push(company.name); failures++; }
+  }
+}
+console.log(`  ${coBad.length === 0 ? GREEN + "✓" + RESET : RED + "✗" + RESET} ` +
+  `${coOk} company calculations verified across ${rankedCompanies().length} companies`);
+if (coBad.length) console.log(`  ${RED}failed: ${[...new Set(coBad)].join(", ")}${RESET}`);
 console.log();
 
 // Country calculations all publish; only the UK per-capita figure is held back.

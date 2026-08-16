@@ -9,6 +9,10 @@
 import { ukValuation, type ClaimView } from "../engine/valuations.ts";
 import { valuableCountries, countryWealth, countryWealthPerCapita } from "../engine/countries.ts";
 import { allMetros, metroValue } from "../engine/metros.ts";
+import {
+  rankedCompanies, investedCapital, returnOnCapital, valueCreated, companyValue,
+  displayName,
+} from "../engine/companies.ts";
 import type { Trace, Traced } from "../engine/trace.ts";
 
 export interface RegistryEntry {
@@ -95,6 +99,26 @@ const build = (): void => {
       isTopLevel: true, publishable: true,
       country: { iso3: m.country, name: m.name, href: `/metro/${m.code.toLowerCase()}` },
     });
+  }
+
+  // --- US public companies --------------------------------------------------
+  for (const { company } of rankedCompanies()) {
+    const where = {
+      iso3: "USA",
+      name: displayName(company.name),
+      href: `/company/${company.cik}`,
+    };
+    const value = companyValue(company);
+    const traces = [
+      valueCreated(company), returnOnCapital(company), investedCapital(company),
+      value?.floor, value?.ceiling,
+    ];
+    for (const t of traces) {
+      if (!t) continue;
+      register(t.trace, t.value, shortLabel(t.trace.question), {
+        isTopLevel: true, publishable: true, country: where,
+      });
+    }
   }
 };
 

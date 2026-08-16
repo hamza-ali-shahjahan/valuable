@@ -14,6 +14,7 @@ import {
   compositionExtremes, findCountry,
 } from "./countries.ts";
 import { findMetro, metroValue, allMetros } from "./metros.ts";
+import { rankedCompanies, companyCoverage, displayName, SEC_YEAR } from "./companies.ts";
 import { ukComprehensiveWealth } from "./valuations.ts";
 import { modelFromTrace, totalAtRate } from "./sensitivity.ts";
 import { formatValue } from "./trace.ts";
@@ -56,6 +57,23 @@ export const findings = (): readonly Finding[] => {
         `country you would actually live in.`,
       action: "See both rankings",
       href: "/countries",
+    });
+  }
+
+  // --- profit is not value creation ------------------------------------------
+  const cov = companyCoverage();
+  const ranked = rankedCompanies();
+  const worst = ranked.at(-1);
+  if (worst && cov.destroyers > 0) {
+    out.push({
+      headline: `${cov.destroyers} of the ${cov.published} biggest US companies destroy value.`,
+      body:
+        `Most of them are profitable. They still fall short, because the money tied up ` +
+        `inside them earns less than that money costs — so the business would serve its ` +
+        `owners better by shrinking. ${displayName(worst.company.name)} led the list in ` +
+        `${SEC_YEAR}. A profit line can never show you this.`,
+      action: "See which ones",
+      href: "/companies",
     });
   }
 
@@ -156,7 +174,7 @@ const ordinal = (n: number): string => {
 /** Everything a visitor can look up, for the search box. */
 export interface SearchEntry {
   readonly name: string;
-  readonly kind: "country" | "city";
+  readonly kind: "country" | "city" | "company";
   readonly href: string;
   readonly detail: string;
 }
@@ -184,7 +202,14 @@ export const searchIndex = (): readonly SearchEntry[] => {
     });
   }
 
-  return [...countries, ...cities].sort((a, b) => a.name.localeCompare(b.name));
+  const companies: SearchEntry[] = rankedCompanies().map((r) => ({
+    name: displayName(r.company.name),
+    kind: "company" as const,
+    href: `/company/${r.company.cik}`,
+    detail: `company · ${r.valueCreated > 0 ? "creates" : "destroys"} ${formatValue(Math.abs(r.valueCreated), "USD")} a year`,
+  }));
+
+  return [...countries, ...cities, ...companies].sort((a, b) => a.name.localeCompare(b.name));
 };
 
 export const compositionOf = countryComposition;

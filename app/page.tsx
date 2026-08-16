@@ -13,12 +13,14 @@ import PlaceSearch from "../components/PlaceSearch.tsx";
 import { findings, searchIndex } from "../engine/findings.ts";
 import { valuableCountries } from "../engine/countries.ts";
 import { allMetros } from "../engine/metros.ts";
+import { rankedCompanies } from "../engine/companies.ts";
 
 export default function Home() {
   const entries = searchIndex();
   const items = findings();
   const countries = valuableCountries().length;
   const cities = allMetros().length;
+  const companies = rankedCompanies().length;
 
   return (
     <main className="wrap">
@@ -37,7 +39,7 @@ export default function Home() {
             { name: "India", href: "/country/ind" },
             { name: "Singapore", href: "/country/sgp" },
             { name: "Paris", href: "/metro/fr001mc" },
-            { name: "Nigeria", href: "/country/nga" },
+            { name: "Intel", href: "/company/50863" },
           ]}
         />
       </section>
@@ -64,15 +66,15 @@ export default function Home() {
           <span className="entity-go">Explore cities →</span>
         </a>
 
-        <div className="entity entity-soon">
-          <div className="entity-count">—</div>
+        <a className="entity" href="/companies">
+          <div className="entity-count">{companies}</div>
           <div className="entity-name">Companies</div>
           <p className="entity-note">
-            Cash-flow valuation with the consistency checks most models skip, and the
-            breakeven revenue a price implies. The engine is built; the pages aren’t.
+            Ranked on whether they earn more than their money costs — not on size. Built
+            from filed accounts, so it is a measurement rather than an opinion.
           </p>
-          <span className="entity-go entity-go-muted">Not published yet</span>
-        </div>
+          <span className="entity-go">Explore companies →</span>
+        </a>
 
         <a className="entity" href="/simulate">
           <div className="entity-count">You</div>

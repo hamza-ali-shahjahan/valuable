@@ -55,7 +55,8 @@ hit in seconds while GDP data lags by quarters.
 
 ## Status
 
-**149 countries, every number checkable.** 201 tests passing, typecheck clean, all 303
+**All four entity types are live: 149 countries, 255 European cities, 246 US public
+companies, and your own startup.** 303 tests passing, typecheck clean, all 1,754
 published calculations verified.
 
 ```bash
@@ -79,9 +80,11 @@ the 149 country valuations recomputes to its recorded fingerprint.
 bun run verify
 ```
 
-**Not built yet:** cities, companies and the founder simulator (the engines exist,
-unpublished); a researched event history for anywhere except the UK; and anything after
-2020, which is the most recent year the World Bank publishes wealth accounts for.
+**Not built yet:** a researched event history for anywhere except the UK; companies
+outside the United States (no other regulator publishes machine-readable accounts for
+every listed company without charging); banks and insurers, which need return on tangible
+equity rather than return on invested capital; and anything after 2020, which is the most
+recent year the World Bank publishes wealth accounts for.
 
 ---
 

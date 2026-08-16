@@ -237,7 +237,8 @@ describe("Findings are computed and stay true", () => {
   });
 
   test("every finding links somewhere that exists", () => {
-    const valid = /^\/(countries|metros|country\/[a-z]+|metro\/[a-z0-9]+|trace\/[0-9a-f]{64})$/;
+    const valid =
+      /^\/(countries|metros|companies|country\/[a-z]+|metro\/[a-z0-9]+|company\/\d+|trace\/[0-9a-f]{64})$/;
     for (const x of f) {
       expect(valid.test(x.href), `bad link: ${x.href}`).toBe(true);
     }
@@ -291,9 +292,14 @@ describe("The sources page is generated from what is actually used", () => {
 
   test("each records how many published figures rely on it", () => {
     for (const x of s) expect(x.figures).toBeGreaterThan(0);
-    // The World Bank carries the most by a wide margin — 149 countries.
-    expect(s[0]!.name).toBe("World Bank");
-    expect(s[0]!.figures).toBeGreaterThan(200);
+    // Ordered by how much of the site each one carries. This used to pin the World Bank
+    // in first place; companies overtook it, because each company publishes five figures
+    // where a country publishes two. Assert the ordering rule, not today's winner —
+    // otherwise the test fails every time we add an entity type, which is not a defect.
+    for (let i = 1; i < s.length; i++) {
+      expect(s[i - 1]!.figures).toBeGreaterThanOrEqual(s[i]!.figures);
+    }
+    expect(s.find((x) => x.name === "World Bank")!.figures).toBeGreaterThan(200);
   });
 
   test("each states its licence and whether we may pass it on", () => {

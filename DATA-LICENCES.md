@@ -26,6 +26,28 @@ Catalog public-licences page is explicit that **CC BY 4.0 is the default for dat
 World Bank produces and distributes as open data.** A reviewer reading only the first page
 would wrongly conclude this whole project is non-viable.
 
+### SEC EDGAR (United States) — **public domain**
+
+> Financial data from company filings with the US Securities and Exchange Commission,
+> retrieved through the EDGAR XBRL frames API.
+> https://www.sec.gov/edgar/sec-api-documentation
+
+Works of the US federal government carry no copyright (17 U.S.C. §105). The filings
+themselves are prepared by the companies but are public records once filed, and the SEC
+publishes them without restriction. The only condition is their **fair access policy**:
+identify yourself in the User-Agent and stay under ten requests a second.
+
+⚠️ **Their edge rejects any User-Agent containing a URL**, including the ordinary
+`(+https://github.com/…)` bot convention — it returns 403 with no explanation. Set
+`SEC_CONTACT` to an email address instead; the ingest reads it from the environment and it
+is deliberately not committed.
+
+⚠️ **We build our own ranking.** The Forbes Global 2000 and the Fortune 500 are
+copyrightable *compilations*, even though the underlying facts are not. Nothing on the
+company pages is derived from either. We rank on value created — a measure nobody
+publishes — computed from filings that belong to the public. Cached in
+`data/sources/sec-companies.json`.
+
 ### Office for National Statistics (UK) — **Open Government Licence v3.0**
 
 > Contains public sector information licensed under the Open Government Licence v3.0.
