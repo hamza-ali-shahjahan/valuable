@@ -34,10 +34,10 @@ export default function Home() {
         <PlaceSearch
           entries={entries}
           suggestions={[
+            { name: "India", href: "/country/ind" },
             { name: "Singapore", href: "/country/sgp" },
             { name: "Paris", href: "/metro/fr001mc" },
             { name: "Nigeria", href: "/country/nga" },
-            { name: "United Kingdom", href: "/country/uk" },
           ]}
         />
       </section>
@@ -48,8 +48,8 @@ export default function Home() {
           <div className="entity-count">{countries}</div>
           <div className="entity-name">Countries</div>
           <p className="entity-note">
-            What a nation owns, what its people will earn, and what its land holds — with
-            the events and decisions that moved the number.
+            What a nation owns, what its people will earn, and what its land holds —
+            measured the same way everywhere, so they can honestly be compared.
           </p>
           <span className="entity-go">Explore countries →</span>
         </a>
@@ -135,9 +135,9 @@ export default function Home() {
       </div>
 
       <footer className="foot">
-        Built in the open. Figures from the World Bank, Eurostat, the UK’s Office for
-        National Statistics and the Office for Budget Responsibility — all listed, with
-        their licences, on the <a href="/sources">sources page</a>.
+        Built in the open. Figures come from national statistics offices and the World
+        Bank — every one listed, with its licence and what it feeds, on the{" "}
+        <a href="/sources">sources page</a>.
       </footer>
     </main>
   );

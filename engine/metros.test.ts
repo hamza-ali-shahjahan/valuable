@@ -269,3 +269,68 @@ describe("The levers are the product, and they rank honestly", () => {
     expect(bloated.readiness).toBe("not_ready");
   });
 });
+
+// ===========================================================================
+// THE PICKER, AND WHOSE COUNTRY LEADS THE PAGE
+//
+// Both of these were reported by the operator looking at the live site, not by any
+// failing test. Encoded so they cannot come back.
+// ===========================================================================
+
+import { allCompositions as _comps } from "./countries.ts";
+import { findings as _findings } from "./findings.ts";
+
+describe("Countries can be found in a list of 149", () => {
+  const alphabetical = [..._comps()].sort((a, b) => a.name.localeCompare(b.name));
+
+  test("large countries people look for are all present", () => {
+    const names = alphabetical.map((c) => c.name);
+    for (const n of ["India", "Pakistan", "Bangladesh", "Nigeria", "Brazil", "Indonesia"]) {
+      expect(names, `${n} is missing`).toContain(n);
+    }
+  });
+
+  test("sorting alphabetically actually reorders — it is not already A to Z", () => {
+    // The engine returns countries ranked by wealth, which is right for a ranking and
+    // useless in a picker. India sat at position 8 and Pakistan at 43 among 149 rows.
+    const byWealth = _comps().map((c) => c.name);
+    const byName = alphabetical.map((c) => c.name);
+    expect(byWealth[0]).not.toBe(byName[0]);
+    expect(byName[0]! <= byName[1]!).toBe(true);
+  });
+
+  test("A to Z puts India and Pakistan where someone would look", () => {
+    const names = alphabetical.map((c) => c.name);
+    const india = names.indexOf("India");
+    const pakistan = names.indexOf("Pakistan");
+    // Both should sit in the middle-to-late alphabet, not at wealth-rank 8 and 43.
+    expect(india).toBeGreaterThan(40);
+    expect(pakistan).toBeGreaterThan(india);
+  });
+});
+
+describe("The front page represents the world, not one country", () => {
+  const f = _findings();
+
+  test("no finding leads with Britain", () => {
+    for (const x of f) {
+      expect(/^(britain|the uk|united kingdom)/i.test(x.headline), x.headline).toBe(false);
+    }
+  });
+
+  test("at most one finding is about Britain at all", () => {
+    const uk = f.filter((x) => /britain|british|united kingdom/i.test(x.headline + x.body));
+    expect(uk.length).toBeLessThanOrEqual(1);
+  });
+
+  test("findings span several continents", () => {
+    const all = f.map((x) => x.headline + " " + x.body).join(" ");
+    const mentioned = ["India", "China", "Singapore", "Iraq", "Nigeria", "Lao", "Dublin", "Berlin"]
+      .filter((n) => all.includes(n));
+    expect(mentioned.length).toBeGreaterThanOrEqual(4);
+  });
+
+  test("the opening finding is not about Britain", () => {
+    expect(/britain|united kingdom/i.test(f[0]!.headline)).toBe(false);
+  });
+});

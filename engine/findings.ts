@@ -32,38 +32,30 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
 
 export const findings = (): readonly Finding[] => {
   const out: Finding[] = [];
+  const countries = valuableCountries();
 
-  // --- the same country, two official answers -------------------------------
-  const ons = ukComprehensiveWealth();
-  const gbr = findCountry("GBR");
-  const wbUk = gbr ? countryWealth(gbr) : null;
-  if (wbUk) {
-    out.push({
-      headline: "Two official bodies value Britain. They disagree by about £20 trillion.",
-      body:
-        `Britain's own statisticians put the country at ${formatValue(ons.value, "GBP")} once ` +
-        `you count its people. The World Bank, measuring the same country, gets ` +
-        `${formatValue(wbUk.value, "USD")}. Neither is wrong — they made different choices ` +
-        `about how much a pound earned decades from now is worth today.`,
-      action: "See both, and why the gap exists",
-      href: "/country/uk",
-    });
-  }
+  // --- biggest is not richest ------------------------------------------------
+  const byTotal = countries;
+  const byPerson = countries
+    .map((c) => ({ c, pc: countryWealthPerCapita(c) }))
+    .filter((x) => x.pc !== null)
+    .sort((a, b) => b.pc!.value - a.pc!.value);
 
-  // --- the lever with the most force ----------------------------------------
-  const m = modelFromTrace(ons.trace, ons.value);
-  if (m) {
-    const lo = totalAtRate(m.model, m.otherComponents, 0.05);
-    const hi = totalAtRate(m.model, m.otherComponents, 0.025);
+  const india = countries.find((c) => c.iso3 === "IND");
+  if (india) {
+    const rankTotal = byTotal.findIndex((c) => c.iso3 === "IND") + 1;
+    const rankPerson = byPerson.findIndex((x) => x.c.iso3 === "IND") + 1;
+    const chinaTotal = byTotal.findIndex((c) => c.iso3 === "CHN") + 1;
+    const chinaPerson = byPerson.findIndex((x) => x.c.iso3 === "CHN") + 1;
     out.push({
-      headline: `One number nobody measured moves Britain's wealth by ${formatValue(hi.total - lo.total, "GBP")}.`,
+      headline: `India is the ${ordinal(rankTotal)} wealthiest country and the ${ordinal(rankPerson)} wealthiest per person.`,
       body:
-        `Valuing people means guessing what future earnings are worth today. Nudge that ` +
-        `guess across a plausible range and the answer swings from ` +
-        `${formatValue(lo.total, "GBP")} to ${formatValue(hi.total, "GBP")}. It is the ` +
-        `single most powerful assumption in national accounting, and almost nobody shows it.`,
-      action: "Drag it yourself",
-      href: `/trace/${ons.trace.hash}`,
+        `The same figures, divided by how many people share them, produce a completely ` +
+        `different world. China moves from ${ordinal(chinaTotal)} to ${ordinal(chinaPerson)}. ` +
+        `Ranking by total tells you about power; ranking per person tells you about the ` +
+        `country you would actually live in.`,
+      action: "See both rankings",
+      href: "/countries",
     });
   }
 
@@ -80,6 +72,41 @@ export const findings = (): readonly Finding[] => {
         `country is made of decides which levers actually work on it.`,
       action: "Compare any two countries",
       href: "/countries",
+    });
+  }
+
+  // --- whose wealth is a commodity bet --------------------------------------
+  const exposed = countries
+    .map((c) => ({ c, k: countryComposition(c) }))
+    .filter((x) => x.k !== null && x.k.total > 3e11)
+    .sort((a, b) => b.k!.natural - a.k!.natural);
+  const top = exposed[0];
+  if (top) {
+    out.push({
+      headline: `${pct(top.k!.natural)} of ${top.c.name}'s wealth is what is under the ground.`,
+      body:
+        `For a handful of countries, most of what they are worth is oil, gas and minerals ` +
+        `priced at one moment in time. It depletes as it is pulled out, and the total moves ` +
+        `with markets nobody there controls. That is a very different thing to own than a ` +
+        `skilled workforce.`,
+      action: `See what ${top.c.name} is made of`,
+      href: `/country/${top.c.iso3.toLowerCase()}`,
+    });
+  }
+
+  // --- the lever with the most force, framed universally --------------------
+  const anchor = countries.find((c) => c.iso3 === "IND") ?? countries[0];
+  const anchorWealth = anchor ? countryWealth(anchor) : null;
+  if (anchor && anchorWealth) {
+    out.push({
+      headline: "One number nobody measured decides about a quarter of any country's wealth.",
+      body:
+        `Most of what a country is worth is its people — and valuing people means choosing ` +
+        `what future earnings are worth today. Nobody measures that number; every ` +
+        `statistics office picks one. Move it a single percentage point and the answer ` +
+        `moves by roughly a quarter.`,
+      action: "Drag it yourself",
+      href: `/trace/${anchorWealth.trace.hash}`,
     });
   }
 
@@ -100,25 +127,30 @@ export const findings = (): readonly Finding[] => {
     });
   }
 
-  // --- wealth per person is not where you'd guess ---------------------------
-  const ranked = valuableCountries()
-    .map((c) => ({ c, pc: countryWealthPerCapita(c) }))
-    .filter((x) => x.pc !== null)
-    .sort((a, b) => b.pc!.value - a.pc!.value);
-  const top = ranked[0];
-  if (top) {
+  // --- the same country, measured twice -------------------------------------
+  const ons = ukComprehensiveWealth();
+  const gbr = findCountry("GBR");
+  const wbUk = gbr ? countryWealth(gbr) : null;
+  if (wbUk) {
     out.push({
-      headline: `The wealthiest country per person is ${top.c.name}, at ${formatValue(top.pc!.value, "USD")} each.`,
+      headline: "Measure one country twice, by two official bodies, and get answers £20 trillion apart.",
       body:
-        `Not the largest economy — the one with the most behind every person in it. ` +
-        `Ranking by total tells you about size; ranking per person tells you about the ` +
-        `country you would actually live in.`,
-      action: "See the full ranking",
-      href: "/countries",
+        `Britain happens to be measured by both its own statisticians and the World Bank, ` +
+        `so the gap is visible: ${formatValue(ons.value, "GBP")} against ` +
+        `${formatValue(wbUk.value, "USD")}. Neither is wrong. Every country's figure rests ` +
+        `on choices like these — most just never get a second opinion.`,
+      action: "See both, and what separates them",
+      href: "/country/uk",
     });
   }
 
   return out;
+};
+
+const ordinal = (n: number): string => {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]!);
 };
 
 /** Everything a visitor can look up, for the search box. */

@@ -11,7 +11,7 @@
  * On a single country page there is nothing to compare, so it renders static.
  */
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { Composition } from "../engine/countries.ts";
 import { formatValue } from "../engine/trace.ts";
 
@@ -76,6 +76,12 @@ export default function CompositionBar({
   compositions: readonly Composition[];
   extremes: readonly { composition: Composition; why: string }[];
 }) {
+  // A to Z. The list arrives sorted by wealth, which is right for a ranking and useless
+  // in a picker — India sat at position 8 and Pakistan at 43 among 149 unlabelled rows.
+  const alphabetical = useMemo(
+    () => [...compositions].sort((a, b) => a.name.localeCompare(b.name)),
+    [compositions],
+  );
   const [iso3, setIso3] = useState(extremes[0]?.composition.iso3 ?? compositions[0]!.iso3);
   const current = compositions.find((c) => c.iso3 === iso3) ?? compositions[0]!;
   const note = extremes.find((e) => e.composition.iso3 === iso3)?.why;
@@ -90,7 +96,7 @@ export default function CompositionBar({
         <label className="comp-picker">
           <span className="comp-picker-label">Compare</span>
           <select value={iso3} onChange={(e) => setIso3(e.target.value)}>
-            {compositions.map((c) => (
+            {alphabetical.map((c) => (
               <option key={c.iso3} value={c.iso3}>{c.name}</option>
             ))}
           </select>
